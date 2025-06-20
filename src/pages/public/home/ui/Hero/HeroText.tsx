@@ -1,4 +1,5 @@
 import { Button } from "@/pages/public/home/ui/Button";
+import { Link } from "react-router-dom";
 
 export const HeroText = () => (
   <div className="max-w-lg">
@@ -8,8 +9,10 @@ export const HeroText = () => (
     <p className="text-md text-gray-800 mb-6 leading-relaxed">
       Цифровая медицинская карта для вашего питомца. Напоминания, AI-советы, история здоровья — всё в одном месте.
     </p>
-    <Button href="/login" variant="primary">
-      Зарегистрироваться
-    </Button>
+    <Link to="/login">
+      <Button variant="primary">
+        Зарегистрироваться
+      </Button>
+    </Link>
   </div>
 );
