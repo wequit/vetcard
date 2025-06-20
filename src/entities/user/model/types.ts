@@ -1,7 +1,9 @@
 export type UserType = 'petOwner' | 'veterinarian' | 'partner' | '';
 
 export type UserRegistrationData = {
-  fullName: string;
+  lastName: string;
+  firstName: string;
+  middleName: string;
   email: string;
   verificationCode: string;
   username: string;

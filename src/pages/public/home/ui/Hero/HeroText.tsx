@@ -9,10 +9,10 @@ export const HeroText = () => (
     <p className="text-md text-gray-800 mb-6 leading-relaxed">
       Цифровая медицинская карта для вашего питомца. Напоминания, AI-советы, история здоровья — всё в одном месте.
     </p>
-    <Link to="/login">
+    <Link to="/register">
       <Button variant="primary">
         Зарегистрироваться
       </Button>
-    </Link>
+    </Link> 
   </div>
 );

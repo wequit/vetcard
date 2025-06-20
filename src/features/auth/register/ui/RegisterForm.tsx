@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
@@ -74,7 +73,9 @@ export const RegisterForm = () => {
         let isValid = true;
         switch (currentStep) {
             case 0:
-                if (!data.fullName.trim()) { newErrors.fullName = 'Пожалуйста, введите ваше полное имя.'; isValid = false; }
+                if (!data.lastName.trim()) { newErrors.lastName = 'Пожалуйста, введите вашу фамилию.'; isValid = false; }
+                if (!data.firstName.trim()) { newErrors.firstName = 'Пожалуйста, введите ваше имя.'; isValid = false; }
+                if (!data.middleName.trim()) { newErrors.middleName = 'Пожалуйста, введите ваше отчество.'; isValid = false; }
                 if (!data.email.trim() || !/\S+@\S+\.\S+/.test(data.email)) { newErrors.email = 'Введите корректный email.'; isValid = false; }
                 break;
             case 1:
