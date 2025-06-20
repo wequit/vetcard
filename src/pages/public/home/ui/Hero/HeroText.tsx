@@ -8,7 +8,7 @@ export const HeroText = () => (
     <p className="text-md text-gray-800 mb-6 leading-relaxed">
       Цифровая медицинская карта для вашего питомца. Напоминания, AI-советы, история здоровья — всё в одном месте.
     </p>
-    <Button href="/register" variant="primary">
+    <Button href="/login" variant="primary">
       Зарегистрироваться
     </Button>
   </div>
