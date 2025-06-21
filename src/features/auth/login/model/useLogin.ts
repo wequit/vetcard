@@ -4,7 +4,7 @@ export function useLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const login = async (email: string, password: string) => {
+  const login = async () => {
     setLoading(true);
     setError(null);
     try {

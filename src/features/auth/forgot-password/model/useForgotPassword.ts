@@ -5,7 +5,6 @@ export function useForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState("");
-  const [code, setCode] = useState("");
   
   const sendEmail = async (email: string) => {
     setLoading(true);
@@ -27,7 +26,6 @@ export function useForgotPassword() {
     try {
       await new Promise(res => setTimeout(res, 1000));
       if (inputCode !== "123456") throw new Error();
-      setCode(inputCode);
       setStep("reset");
     } catch {
       setError("Неверный код");
@@ -36,7 +34,7 @@ export function useForgotPassword() {
     }
   };
 
-  const resetPassword = async (newPassword: string) => {
+  const resetPassword = async () => {
     setLoading(true);
     setError(null);
     try {

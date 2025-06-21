@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { useLogin } from "../model/useLogin";
@@ -13,7 +12,7 @@ export const LoginFields = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login(email, password);
+    login();
   };
 
   return (

@@ -18,7 +18,7 @@ export const ForgotPasswordForm = () => {
         e.preventDefault();
         if (step === "email") sendEmail(input);
         if (step === "code") verifyCode(input);
-        if (step === "reset") resetPassword(newPassword);
+        if (step === "reset") resetPassword();
       }}
       className="space-y-4"
     >
