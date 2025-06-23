@@ -1,4 +1,4 @@
-import { Header } from "@/pages/public/home/ui/Header/Header";
+import { Header } from "@/widgets/Header/ui/Header";
 
 export const AboutPage = () => (
   <div className="min-h-screen bg-white">

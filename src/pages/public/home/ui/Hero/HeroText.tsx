@@ -1,4 +1,4 @@
-import { Button } from "@/pages/public/home/ui/Button";
+import { Button } from "@/shared/ui/Button";
 import { Link } from "react-router-dom";
 
 export const HeroText = () => (

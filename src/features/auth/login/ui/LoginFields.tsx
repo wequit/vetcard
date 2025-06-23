@@ -3,16 +3,19 @@ import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { useLogin } from "../model/useLogin";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/Button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LoginFields = () => {
   const { login, error, loading } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login();
+    login().then(() => {
+      navigate('/mypets');
+    });
   };
 
   return (
@@ -45,11 +48,9 @@ export const LoginFields = () => {
       )}
 
       <div className="flex justify-center">
-       <Link to='/dashboard'>
         <Button type="submit" variant="primary" className="w-32" disabled={loading}>
             {loading ? 'Входим...' : 'Войти'}
         </Button>
-        </Link>
       </div>
     </form>
   );
