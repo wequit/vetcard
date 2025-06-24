@@ -4,7 +4,7 @@ import dogImage from './dog.jpg'
 export const AboutPage = () => (
   <div className="min-h-screen bg-white">
     <Header />
-
+  
     <main className="container mx-auto px-6 md:px-20 py-12">
   <section className="flex flex-col md:flex-row justify-between items-start">
     {/* Текстовый блок */}
