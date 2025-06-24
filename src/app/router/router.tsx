@@ -13,6 +13,8 @@ import { ForgotPasswordPage } from '@/pages/public/auth/forgot-password/ui/Forgo
 
 import { DashboardPage } from '@/pages/private/owner/dashboard/DashboardPage';
 import { MyPetsPage } from '@/pages/private/owner/mypets/MyPetsPage';
+import { AddPetPage } from '@/pages/private/owner/add-pet/AddPetPage';
+
 import { UserProfilePage } from '@/pages/private/owner/userprofile/UserProfilePage';
 import { AssistantPage } from '@/pages/private/owner/assistant/AssistantPage';
 import { RemindersPage } from '@/pages/private/owner/reminders/RemindersPage';
@@ -46,6 +48,8 @@ export const Router = () => {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/userprofile" element={<UserProfilePage />} />
         <Route path="/mypets" element={<MyPetsPage />} />
+        <Route path="/add-pet" element={<AddPetPage />} />
+
         <Route path="/assistant" element={<AssistantPage />} />
         <Route path="/reminders" element={<RemindersPage />} />
         <Route path="/articles" element={<ArticlesPage />} />
