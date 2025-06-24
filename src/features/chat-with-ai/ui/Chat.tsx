@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import {  AnimatePresence } from 'framer-motion';
 import { FaPaperPlane } from 'react-icons/fa';
