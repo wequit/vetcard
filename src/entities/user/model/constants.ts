@@ -1,4 +1,3 @@
-
 import { FaPaw, FaUserMd, FaBuilding } from 'react-icons/fa';
 import type { UserRegistrationData } from './types';
 
@@ -9,7 +8,9 @@ export const USER_TYPES = {
 } as const;
 
 export const INITIAL_REGISTRATION_DATA: UserRegistrationData = {
-  fullName: '',
+  lastName: '',
+  firstName: '',
+  middleName: '',
   email: '',
   verificationCode: '',
   username: '',

@@ -1,5 +1,5 @@
-import { Header } from "@/pages/public/home/ui/Header/Header";
-import dogImage from "./dog.jpg"; // Импорт локального изображения
+import { Header } from "@/widgets/Header/ui/Header";
+import dogImage from './dog.jpg'
 
 export const AboutPage = () => (
   <div className="min-h-screen bg-white">

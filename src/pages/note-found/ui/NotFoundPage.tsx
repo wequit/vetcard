@@ -1,4 +1,4 @@
-import errorImg from './404error-amico.svg';
+import errorImg from '@/assets/images/404error-amico.svg';
 
 export const NotFoundPage = () => (
   <div className="min-h-screen flex flex-col justify-center items-center bg-white text-center">
