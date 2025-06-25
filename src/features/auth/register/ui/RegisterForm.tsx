@@ -7,9 +7,9 @@ import {  INITIAL_REGISTRATION_DATA } from '@/entities/user/model/constants';
 import type { UserRegistrationData } from '@/entities/user/model/types';
 import { baseSteps, vetStep, partnerStep } from '../model/steps';
 
-import { Step1PersonalInfo } from './steps/Step1PersonalInfo';
-import { Step2Verification } from './steps/Step2Verification';
-import { Step3Credentials } from './steps/Step3Credentials';
+import { Step1Credentials } from './steps/Step1Credentials';
+import { Step2PersonalInfo } from './steps/Step2PersonalInfo';
+import { Step3Verification } from './steps/Step3Verification';
 import { Step4UserType } from './steps/Step4UserType';
 import { Step5Details } from './steps/Step5Details';
 
@@ -73,18 +73,18 @@ export const RegisterForm = () => {
         let isValid = true;
         switch (currentStep) {
             case 0:
+                if (data.username.length < 4) { newErrors.username = 'Логин должен быть не менее 4 символов.'; isValid = false; }
+                if (data.password.length < 6) { newErrors.password = 'Пароль должен быть не менее 6 символов.'; isValid = false; }
+                if (data.password !== confirmPassword) { newErrors.confirmPassword = 'Пароли не совпадают.'; isValid = false; }
+                break;
+            case 1:
                 if (!data.lastName.trim()) { newErrors.lastName = 'Пожалуйста, введите вашу фамилию.'; isValid = false; }
                 if (!data.firstName.trim()) { newErrors.firstName = 'Пожалуйста, введите ваше имя.'; isValid = false; }
                 if (!data.middleName.trim()) { newErrors.middleName = 'Пожалуйста, введите ваше отчество.'; isValid = false; }
                 if (!data.email.trim() || !/\S+@\S+\.\S+/.test(data.email)) { newErrors.email = 'Введите корректный email.'; isValid = false; }
                 break;
-            case 1:
-                if (data.verificationCode !== '123456') { newErrors.verificationCode = 'Неверный код подтверждения.'; isValid = false; }
-                break;
             case 2:
-                if (data.username.length < 4) { newErrors.username = 'Логин должен быть не менее 4 символов.'; isValid = false; }
-                if (data.password.length < 6) { newErrors.password = 'Пароль должен быть не менее 6 символов.'; isValid = false; }
-                if (data.password !== confirmPassword) { newErrors.confirmPassword = 'Пароли не совпадают.'; isValid = false; }
+                if (data.verificationCode !== '123456') { newErrors.verificationCode = 'Неверный код подтверждения.'; isValid = false; }
                 break;
             case 3:
                 if (!data.userType) { newErrors.userType = 'Пожалуйста, выберите тип регистрации.'; isValid = false; }
@@ -103,9 +103,15 @@ export const RegisterForm = () => {
     };
 
     const stepComponents = [
-        <Step1PersonalInfo data={data} errors={errors} updateField={updateField} />,
-        <Step2Verification data={data} errors={errors} updateField={updateField} />,
-        <Step3Credentials data={data} errors={errors} updateField={updateField} confirmPassword_val={confirmPassword} setConfirmPassword_val={setConfirmPassword} />,
+        <Step1Credentials
+            data={data}
+            errors={errors}
+            updateField={updateField}
+            confirmPassword_val={confirmPassword}
+            setConfirmPassword_val={setConfirmPassword}
+        />,
+        <Step2PersonalInfo data={data} errors={errors} updateField={updateField} />,
+        <Step3Verification data={data} errors={errors} updateField={updateField} />,
         <Step4UserType data={data} errors={errors} updateField={updateField} />,
         <Step5Details data={data} errors={errors} updateField={updateField} handleFileChange={handleFileChange} />
     ];

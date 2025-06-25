@@ -22,9 +22,11 @@ import { ArticlesPage } from '@/pages/private/owner/articles/ArticlesPage';
 import { ProductsPage } from '@/pages/private/owner/products/ProductsPage';
 
 import { NotFoundPage } from '@/pages/note-found/ui/NotFoundPage';
+import { PetProvider } from '@/entities/pet/model/PetContext';
+import { EditPetPage } from '@/pages/private/owner/mypets/EditPetPage';
 
 export const Router = () => {
-  return (
+  return (<PetProvider>
     <Routes>
       {/* --- Группа публичных роутов --- */}
       
@@ -37,6 +39,7 @@ export const Router = () => {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
       {/* --- Группа приватных роутов для владельца питомца --- */}
+      
       <Route 
         element={
           <ProtectedRoute>
@@ -54,10 +57,13 @@ export const Router = () => {
         <Route path="/reminders" element={<RemindersPage />} />
         <Route path="/articles" element={<ArticlesPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/mypets/edit/:id" element={<EditPetPage />} />
       </Route>
+     
       
       {/* Роут для страницы "не найдено" */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    </PetProvider>
   );
 };

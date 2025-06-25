@@ -1,8 +1,10 @@
 
 export interface Pet {
-    id: string;
-    name: string;
-    breed: string;
-    age: number;
-    avatarUrl: string;
-  }
+  id: string;
+  name: string;
+  species: string;      
+  breed: string;        
+  dateOfBirth: string;   
+  weight: number;       
+  avatarUrl: string;
+}

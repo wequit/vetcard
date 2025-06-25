@@ -1,7 +1,7 @@
 
 import { NavLink } from "@/shared/ui/NavLink";
 import { Button } from "@/shared/ui/Button"; 
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import {  FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/entities/user/model/useAuth";
 import { Logo } from "@/shared/ui/Logo";
@@ -26,9 +26,6 @@ const PublicNav = () => (
 
 const AuthNav = ({ user, onLogout }: { user: any; onLogout: () => void }) => (
   <nav className="flex items-center gap-6">
-    <button className="text-slate-500 hover:text-slate-900 transition-colors">
-      <FaBell className="w-5 h-5" />
-    </button>
     <Link to="/userprofile" className="flex items-center gap-2 text-slate-600 hover:text-slate-900">
       <FaUserCircle className="w-8 h-8 text-slate-300" />
       <span className="text-sm font-medium">{user.name}</span>

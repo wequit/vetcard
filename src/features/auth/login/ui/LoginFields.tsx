@@ -21,9 +21,9 @@ export const LoginFields = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Input
-        id="email"
-        label="Email"
-        type="email"
+        id="login"
+        label="Логин"
+        type="Login"
         placeholder="email@example.com"
         value={email}
         onChange={e => setEmail(e.target.value)}

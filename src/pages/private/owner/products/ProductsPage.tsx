@@ -1,21 +1,44 @@
-
-import { FaShoppingBag } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaShoppingBag, FaSearch } from 'react-icons/fa';
+import { mockProducts } from '@/entities/product/model/ProductMock';
+import { ProductList } from '@/entities/product/ui/ProductList';
 
 export const ProductsPage = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filteredProducts = mockProducts.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="space-y-8">
-            <header>
-                <h1 className="flex items-center gap-3 text-3xl font-bold text-slate-900">
+            {/* Заголовок и поиск */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="flex items-center gap-3 text-3xl font-bold text-slate-900">
                     <FaShoppingBag className="text-teal-500" />
                     Товары и Услуги
-                </h1>
-                <p className="mt-2 text-slate-600">Рекомендованные товары и услуги от наших партнеров.</p>
-            </header>
+                </div>
 
-            <div className="p-8 bg-white rounded-xl shadow-md text-center text-slate-500">
-                <p>Содержимое страницы товаров в разработке...</p>
-                {/* TODO: Здесь будет фича <FilterProducts /> и сущность <ProductsList /> */}
+                {/* Поиск */}
+                <div className="relative w-full md:w-1/3">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <FaSearch />
+                    </span>
+                    <input
+                        type="text"
+                        placeholder="Поиск по названию..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    />
+                </div>
             </div>
+
+            <p className="text-slate-600">
+                Рекомендованные товары и услуги от наших партнеров.
+            </p>
+
+            <ProductList products={filteredProducts} />
         </div>
     );
 };

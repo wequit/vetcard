@@ -1,10 +1,9 @@
-
 import { PetList } from '@/entities/pet/ui/PetList';
-import { mockPets } from '@/entities/pet/model/mock'; 
 import { AddPetButton } from '@/features/add-pet/ui/AddPetButton';
+import { usePets } from '@/entities/pet/model/PetContext';
 
 export const MyPetsPage = () => {
-    const pets = mockPets; 
+    const { pets } = usePets();
 
     return (
         <div>
@@ -13,9 +12,10 @@ export const MyPetsPage = () => {
                     <h1 className="text-3xl font-bold text-slate-900">Мои питомцы</h1>
                     <p className="mt-1 text-slate-500">Управляйте профилями ваших любимцев.</p>
                 </div>
-                <AddPetButton />
+                <a href="/add-pet">
+                  <AddPetButton />
+                </a>
             </header>
-            
             <PetList pets={pets} />
         </div>
     );
