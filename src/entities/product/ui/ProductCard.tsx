@@ -6,15 +6,15 @@ import { FaArrowRight } from 'react-icons/fa';
 
 interface ProductCardProps {
   product: Product;
+  onClick: () => void;
 }
 
-export const ProductCard = memo(({ product }: ProductCardProps) => {
+export const ProductCard = memo(({ product, onClick }: ProductCardProps) => {
   return (
     <motion.div
       className="relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border-l-8 border-teal-500 transition duration-300 flex flex-col"
       whileHover={{ y: -4, scale: 1.015 }}
     >
-      {/* Градиентный бордер снизу при наведении */}
       <div className="absolute inset-0 pointer-events-none rounded-2xl ring-0 hover:ring-4 ring-teal-300 transition duration-300"></div>
 
       <img
@@ -30,7 +30,7 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
 
         <Button
           variant="outline"
-          to={`/products/${product.id}`}
+          onClick={onClick}
           className="w-full flex items-center justify-center gap-2 text-teal-600 border-teal-500 hover:bg-teal-50 hover:shadow-sm transition"
         >
           Подробнее
