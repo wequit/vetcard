@@ -1,7 +1,3 @@
-import { Button } from "@/shared/ui/Button";
-import { FaPlus } from 'react-icons/fa';
-import { useNavigate } from "react-router-dom";
-
 export const AddPetPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
