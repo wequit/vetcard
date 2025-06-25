@@ -1,21 +1,32 @@
 import { useState } from "react";
 import { FaEnvelope, FaLock } from 'react-icons/fa';
-import { useLogin } from "../model/useLogin";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/Button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/entities/user/model/useAuth";
 
 export const LoginFields = () => {
-  const { login, error, loading } = useLogin();
-  const [email, setEmail] = useState("");
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    login().then(() => {
-      navigate('/mypets');
-    });
+    setLoading(true);
+    setError("");
+    if (username === "vet" && password === "vetpass") {
+      login({ name: "Ветеринар", avatarUrl: null, role: "professional" });
+      navigate("/dashboard");
+    } else if (username === "owner" && password === "ownerpass") {
+      login({ name: "Владелец", avatarUrl: null, role: "owner" });
+      navigate("/dashboard");
+    } else {
+      setError("Неверный логин или пароль");
+    }
+    setLoading(false);
   };
 
   return (
@@ -23,10 +34,10 @@ export const LoginFields = () => {
       <Input
         id="login"
         label="Логин"
-        type="Login"
-        placeholder="email@example.com"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        type="text"
+        placeholder="Введите логин"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
         required
         icon={<FaEnvelope className="text-gray-400" />}
       />

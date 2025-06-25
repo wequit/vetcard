@@ -8,7 +8,6 @@ export const Step3Verification = memo(({ data, errors, updateField }: StepProps)
   const [message, setMessage] = useState('');
 
   const handleSendCode = () => {
-    // Пока нет API
     setMessage(`Код "123456" отправлен (заглушка).`);
   };
 
@@ -25,10 +24,10 @@ export const Step3Verification = memo(({ data, errors, updateField }: StepProps)
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateField('verificationCode', e.target.value)}
         error={errors.verificationCode}
         autoFocus
-        className="text-center tracking-widest text-lg"
+        className="text-center tracking-widest text-lg border  "
       />
 
-      <div className="flex flex-col gap-2 mt-4">
+      <div className="flex flex-col justify-center w-[15rem] gap-2 mt-4">
         <Button type="button" onClick={handleSendCode}>
           Отправить код повторно
         </Button>

@@ -14,7 +14,8 @@ export function useLogin() {
       
       authLogin({
         name: 'Адиль',
-        avatarUrl: null
+        avatarUrl: null,
+        role: "professional"
       });
       
     } catch (e) {

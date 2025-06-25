@@ -24,11 +24,11 @@ import { ProductsPage } from '@/pages/private/owner/products/ProductsPage';
 import { NotFoundPage } from '@/pages/note-found/ui/NotFoundPage';
 import { PetProvider } from '@/entities/pet/model/PetContext';
 import { EditPetPage } from '@/pages/private/owner/mypets/EditPetPage';
+import { MyDataPage } from '@/pages/private/vet/mydata/MyDataPage';
 
 export const Router = () => {
   return (<PetProvider>
     <Routes>
-      {/* --- Группа публичных роутов --- */}
       
       <Route path="/" element={<RootPage />} />
 
@@ -38,7 +38,6 @@ export const Router = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-      {/* --- Группа приватных роутов для владельца питомца --- */}
       
       <Route 
         element={
@@ -47,7 +46,6 @@ export const Router = () => {
           </ProtectedRoute>
         }
       >
-        {/* Все эти роуты защищены и используют общий лэйаут с сайдбаром */}
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/userprofile" element={<UserProfilePage />} />
         <Route path="/mypets" element={<MyPetsPage />} />
@@ -58,6 +56,8 @@ export const Router = () => {
         <Route path="/articles" element={<ArticlesPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/mypets/edit/:id" element={<EditPetPage />} />
+       
+        <Route path="/mydata" element={<MyDataPage />} />
       </Route>
      
       

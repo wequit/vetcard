@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 interface User {
   name: string;
   avatarUrl: string | null;
+  role: 'owner' | 'professional';
 }
 
 let authState: { isAuthenticated: boolean; user: User | null } = {

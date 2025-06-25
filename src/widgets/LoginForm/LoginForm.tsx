@@ -1,7 +1,6 @@
-
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import type {  Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { LoginFields } from "@/features/auth/login/ui/LoginFields";
 
 const containerVariants: Variants = {
@@ -26,7 +25,7 @@ const itemVariants: Variants = {
   },
 };
 
-export const LoginForm = () => ( 
+export const LoginForm = () => (
   <motion.div 
     className="w-full max-w-md mx-auto flex flex-col bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-slate-100"
     variants={containerVariants}

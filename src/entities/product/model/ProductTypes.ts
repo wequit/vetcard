@@ -9,6 +9,6 @@ export interface Product {
     city?: string;
     address?: string;
     phone?: string;
-    link?: string; // например, /partners/123
+    link?: string; 
   };
 }

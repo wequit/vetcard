@@ -3,19 +3,18 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '@/shared/ui/Logo';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useAuth } from "@/entities/user/model/useAuth";
 
 import { ownerNavConfig, professionalNavConfig } from '../config/links';
 
-const useUser = () => ({ role: 'owner' });
-
 export const Sidebar = () => {
-    const { role } = useUser();
+    const { user } = useAuth();
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const navConfig = useMemo(() => {
-        if (role === 'owner') return ownerNavConfig;
-        return professionalNavConfig;
-    }, [role]);
+        if (user?.role === 'professional') return professionalNavConfig;
+        return ownerNavConfig;
+    }, [user?.role]);
 
     const inactiveLinkClass = "text-slate-800 hover:bg-slate-100";
     const activeLinkClass = "bg-slate-100 text-slate-900 font-semibold";
