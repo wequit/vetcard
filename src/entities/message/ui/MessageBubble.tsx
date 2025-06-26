@@ -1,5 +1,3 @@
-// FILE: src/entities/message/ui/MessageBubble.tsx
-
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser } from 'react-icons/fa';
@@ -20,7 +18,6 @@ export const MessageBubble = memo(({ message }: MessageBubbleProps) => {
   const layoutClasses = isUser ? 'justify-end' : 'justify-start';
 
   const userAvatar = (
-    // FIX: Делаем аватар чуть меньше на мобильных
     <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
       <FaUser className="w-4 h-4 text-slate-500" />
     </div>
@@ -34,14 +31,12 @@ export const MessageBubble = memo(({ message }: MessageBubbleProps) => {
 
   return (
     <motion.div
-      // FIX: Уменьшаем отступ на мобильных
       className={`flex items-start gap-2 sm:gap-3 w-full ${layoutClasses}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       {!isUser && aiAvatar}
-      {/* FIX: Ограничиваем ширину пузыря на мобильных, чтобы он не был слишком широким */}
       <div className={`max-w-[85%] sm:max-w-xl rounded-xl px-4 py-3 ${bubbleClasses}`}>
         <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.text}</p>
       </div>

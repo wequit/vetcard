@@ -1,5 +1,3 @@
-// FILE: src/widgets/Sidebar/model/SidebarContext.tsx
-
 import { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ISidebarContext {

@@ -74,7 +74,6 @@ export const SupportPage = () => {
                     className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 font-semibold transition-colors"
                 >
                     <FaArrowLeft />
-                    {/* Текст кнопки можно сделать более конкретным */}
                     {isAuthenticated ? 'Вернуться в кабинет' : 'Вернуться на главную'}
                 </button>
             </div>

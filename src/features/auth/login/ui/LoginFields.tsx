@@ -19,7 +19,7 @@ export const LoginFields = () => {
     setError("");
     if (username === "vet" && password === "vetpass") {
       login({ name: "Ветеринар", avatarUrl: null, role: "professional" });
-      navigate("/dashboard");
+      navigate("/mydata");
     } else if (username === "owner" && password === "ownerpass") {
       login({ name: "Владелец", avatarUrl: null, role: "owner" });
       navigate("/dashboard");

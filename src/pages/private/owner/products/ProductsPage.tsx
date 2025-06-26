@@ -15,7 +15,6 @@ export const ProductsPage = () => {
 
   return (
     <div className="space-y-8 relative">
-      {/* Заголовок и поиск */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-3 text-3xl font-bold text-slate-900">
           <FaShoppingBag className="text-teal-500" />
@@ -42,7 +41,6 @@ export const ProductsPage = () => {
 
       <ProductList products={filteredProducts} onProductClick={setSelectedProduct} />
 
-      {/* Модальное окно */}
       {selectedProduct && (
         <ProductModal
           product={selectedProduct}

@@ -1,12 +1,10 @@
-// FILE: src/widgets/Sidebar/ui/Sidebar.tsx
-
 import { useState, useMemo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from '@/shared/ui/Logo';
 import { FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
 import { useAuth } from "@/entities/user/model/useAuth";
-import { useSidebarContext } from '../model/SidebarContext'; // Наш хук
+import { useSidebarContext } from '../model/SidebarContext'; 
 import { ownerNavConfig, professionalNavConfig, NavSection } from '../config/links';
 import { Button } from '@/shared/ui/Button';
 
@@ -26,7 +24,6 @@ const SidebarContent = ({ isCollapsed, onCollapseToggle, navConfig, onCloseMobil
                 <div className="flex items-center">
                     <Logo />
                 </div>
-                {/* Кнопка закрытия для мобильной версии */}
                 <button onClick={onCloseMobile} className="p-2 lg:hidden text-slate-500 hover:text-slate-800">
                     <FaTimes />
                 </button>
@@ -45,7 +42,11 @@ const SidebarContent = ({ isCollapsed, onCollapseToggle, navConfig, onCloseMobil
                         <ul className="space-y-1">
                             {section.links.map(link => (
                                 <li key={link.to}>
-                                    <NavLink to={link.to} className={({ isActive }) => `flex items-center rounded-lg px-3 py-2.5 text-sm transition-colors ${isActive ? activeLinkClass : inactiveLinkClass} ${isCollapsed ? 'justify-center' : 'space-x-4'}`}>
+                                    <NavLink 
+                                        to={link.to} 
+                                        className={({ isActive }) => `flex items-center rounded-lg px-3 py-2.5 text-sm transition-colors ${isActive ? activeLinkClass : inactiveLinkClass} ${isCollapsed ? 'justify-center' : 'space-x-4'}`}
+                                        onClick={onCloseMobile}
+                                    >
                                         <div className="text-xl w-6 flex justify-center">{link.icon}</div>
                                         <AnimatePresence>
                                             {!isCollapsed && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.1 }} className="flex-1 whitespace-nowrap">{link.text}</motion.span>}
@@ -58,9 +59,9 @@ const SidebarContent = ({ isCollapsed, onCollapseToggle, navConfig, onCloseMobil
                 ))}
             </nav>
 
-            <div className="p-3 flex justify-start items-end mt-auto">
+            <div className="p-3 flex justify-start items-end mt-auto lg:hidden">
                 <Link to="/">
-                    <Button onClick={onLogout} variant="outline" className="text-sm py-2 px-4">
+                    <Button onClick={() => { onLogout(); onCloseMobile(); }} variant="outline" className="text-sm py-2 px-4">
                         Выйти
                     </Button>
                 </Link>
@@ -114,8 +115,8 @@ export const Sidebar = () => {
                             className="fixed top-0 left-0 h-full w-full max-w-xs bg-white shadow-xl"
                         >
                             <SidebarContent 
-                                isCollapsed={false} // Мобильный сайдбар всегда развернут
-                                onCollapseToggle={closeMobileSidebar} // Кнопка "Свернуть" здесь будет просто закрывать меню
+                                isCollapsed={false} 
+                                onCollapseToggle={closeMobileSidebar} 
                                 navConfig={navConfig} 
                                 onCloseMobile={closeMobileSidebar}
                                 onLogout={logout}

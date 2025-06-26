@@ -33,13 +33,11 @@ export const ReminderCard = memo(({ reminder, onUpdateStatus, onDelete }: Remind
             transition={{ type: 'spring' }}
             className={`flex items-start gap-4 p-4 bg-white rounded-xl shadow-md border-l-4 transition-colors ${isDone ? 'border-green-400 bg-green-50/50' : 'border-teal-400'}`}
         >
-            {/* Блок с датой */}
             <div className="flex flex-col items-center justify-center w-16 text-center flex-shrink-0">
                 <p className="text-xs font-bold text-teal-600 uppercase">{month.replace('.', '')}</p>
                 <p className="text-3xl font-extrabold text-slate-800">{day}</p>
             </div>
 
-            {/* Блок с информацией */}
             <div className="flex-grow">
                 <p className={`font-semibold text-slate-800 ${isDone ? 'line-through text-slate-500' : ''}`}>
                     {reminder.assistant_sms}
@@ -52,14 +50,13 @@ export const ReminderCard = memo(({ reminder, onUpdateStatus, onDelete }: Remind
                 </div>
             </div>
 
-            {/* Блок с действиями */}
             <div className="flex items-center gap-2">
                 {!isDone && (
                     <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => onUpdateStatus(reminder.id, 'Сделано')}>
                         <FaCheckCircle className="text-green-500" />
                     </Button>
                 )}
-                <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => {/* TODO: Open Edit Modal */}}>
+                <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" >
                     <FaEdit className="text-slate-400" />
                 </Button>
                 <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => onDelete(reminder.id)}>

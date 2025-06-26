@@ -25,7 +25,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                         className="bg-white rounded-2xl shadow-xl w-full max-w-lg relative"
-                        onClick={(e) => e.stopPropagation()} // Предотвращаем закрытие по клику на само окно
+                        onClick={(e) => e.stopPropagation()}
                     >
                         <header className="flex items-center justify-between p-6 border-b border-slate-200">
                             <h3 className="text-lg font-bold text-slate-800">{title}</h3>

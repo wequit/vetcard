@@ -40,7 +40,6 @@ export const ReminderCard = memo(({ reminder, onUpdateStatus, onDelete, onEdit }
             </div>
 
             <div className="flex-grow">
-                {/* FIX: Отображаем поле event */}
                 <p className={`font-semibold ${isDone ? 'line-through text-slate-500' : 'text-slate-800'}`} title={reminder.event}>
                     {reminder.event}
                 </p>

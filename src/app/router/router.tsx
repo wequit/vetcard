@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 
 import { PublicLayout } from '../layouts/PublicLayout';
@@ -62,6 +61,7 @@ export const Router = () => {
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/mydata" element={<MyDataPage />} />
+          <Route path="/mydata/edit" element={<MyDataPage />} />
         </Route>
         
         {/* Роут для страницы "не найдено", должен быть последним */}

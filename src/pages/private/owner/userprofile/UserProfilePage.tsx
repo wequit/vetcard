@@ -9,7 +9,6 @@ export const UserProfilePage = () => {
 
             <div className="p-8 bg-white rounded-xl shadow-md text-center text-slate-500">
                 <p>Содержимое страницы профиля в разработке...</p>
-                {/* TODO: Здесь будут фичи <EditProfileForm /> и <ChangePasswordForm /> */}
             </div>
         </div>
     );

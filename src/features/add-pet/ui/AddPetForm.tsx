@@ -38,7 +38,6 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Секция основной информации */}
             <div>
                 <h3 className="text-lg font-semibold text-slate-800 border-b border-slate-200 pb-2 mb-4">Основная информация</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -50,7 +49,6 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
                 </div>
             </div>
 
-            {/* Секция дополнительной информации */}
             <div>
                  <h3 className="text-lg font-semibold text-slate-800 border-b border-slate-200 pb-2 mb-4">Дополнительно</h3>
                  <div className="space-y-6">
@@ -62,7 +60,6 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
                 </div>
             </div>
             
-            {/* Кнопки действий */}
             <div className="flex justify-end gap-4 pt-4 border-t border-slate-200">
                 <Button type="button" variant="outline" onClick={onCancel}>
                     Отмена

@@ -12,7 +12,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   to?: string;
-  title?: string; // <-- Вот то, что нам было нужно изначально
+  title?: string; 
 }
 
 export const Button = ({
@@ -23,7 +23,7 @@ export const Button = ({
   className = '',
   disabled = false,
   to,
-  title, // <-- Получаем title из пропсов
+  title,
 }: ButtonProps) => {
   const baseStyles = 'inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
   
@@ -50,7 +50,7 @@ export const Button = ({
     <MotionLink 
         to={to} 
         className={combinedClassName} 
-        title={title} // <-- Передаем title на Link
+        title={title} 
         {...motionProps}
     >
       {children}
@@ -61,7 +61,7 @@ export const Button = ({
       onClick={onClick}
       className={combinedClassName}
       disabled={disabled}
-      title={title} // <-- Передаем title на button
+      title={title}
       {...motionProps}
     >
       {children}
