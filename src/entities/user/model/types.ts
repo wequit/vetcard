@@ -8,9 +8,9 @@ export type UserRegistrationData = {
   verificationCode: string;
   username: string;
   password: string;
-  userType: UserType;
-  clinicName?: string;
-  position?: string;
+  userType: UserType; //petOwner' | 'veterinarian' | 'partner
+  clinicName?: string;  //Если выбрал вет, то название клиники
+  position?: string;  //Ну вы поняли надеюсь дальше
   experience?: string;
   specialization?: string;
   licenseNumber?: string;

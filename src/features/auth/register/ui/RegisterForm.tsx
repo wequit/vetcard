@@ -31,7 +31,7 @@ export const RegisterForm = () => {
     
     useEffect(() => {
         if (isRegistered) {
-            const timer = setTimeout(() => navigate('/mypets'), 2000);
+            const timer = setTimeout(() => navigate('/dashboard'), 2000);
             return () => clearTimeout(timer);
         }
     }, [isRegistered, navigate]);

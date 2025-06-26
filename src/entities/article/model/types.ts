@@ -1,4 +1,3 @@
-
 interface Author {
     name: string;
     avatarUrl: string;

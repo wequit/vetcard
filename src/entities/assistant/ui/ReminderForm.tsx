@@ -1,90 +1,71 @@
-import { useState } from 'react';
-import { Assistant } from '../model/types';
 
-interface ReminderFormProps {
-    onAdd: (reminder: Assistant) => void;
-    onCancel: () => void;
-  }
-  
-  export const ReminderForm = ({ onAdd, onCancel }: ReminderFormProps) => {
-    const [date, setDate] = useState('');
-    const [animalName, setAnimalName] = useState('Рекс');
-    const [sms, setSms] = useState('');
-  
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-  
-      if (!date || !sms) {
-        alert('Пожалуйста, заполните все поля.');
-        return;
-      }
-  
-      const newReminder: Assistant = {
-        id: Date.now().toString(), // простой способ сгенерировать уникальный id
-        date,
-        animalName,
-        assistant_sms: sms,
-        status: 'Запланировано',
-      };
-  
-      onAdd(newReminder);
-      setDate('');
-      setAnimalName('Рекс');
-      setSms('');
-    };
-  
+import { memo } from 'react';
+import { motion } from 'framer-motion';
+import { FaSyringe, FaBone, FaCalendarCheck, FaTrash, FaCheckCircle, FaEdit } from 'react-icons/fa';
+import { Reminder } from '../model/types';
+import { Button } from '@/shared/ui/Button'; 
+
+interface ReminderCardProps {
+    reminder: Reminder;
+    onUpdateStatus: (id: string, status: Reminder['status']) => void;
+    onDelete: (id: string) => void;
+}
+
+const getIconForReminder = (text: string) => {
+    const lowerText = text.toLowerCase();
+    if (lowerText.includes('прививка') || lowerText.includes('вакцинация')) return <FaSyringe />;
+    if (lowerText.includes('корм')) return <FaBone />;
+    return <FaCalendarCheck />;
+};
+
+export const ReminderCard = memo(({ reminder, onUpdateStatus, onDelete }: ReminderCardProps) => {
+    const isDone = reminder.status === 'Сделано';
+    const cardDate = new Date(reminder.date);
+    const day = cardDate.toLocaleDateString('ru-RU', { day: '2-digit' });
+    const month = cardDate.toLocaleDateString('ru-RU', { month: 'short' });
+
     return (
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium text-slate-700">Дата</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
-            required
-          />
-        </div>
-  
-        <div>
-          <label className="block mb-1 font-medium text-slate-700">Имя животного</label>
-          <select
-            value={animalName}
-            onChange={(e) => setAnimalName(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
-          >
-            <option value="Рекс">Рекс</option>
-            <option value="Мурка">Мурка</option>
-            <option value="Кеша">Кеша</option>
-          </select>
-        </div>
-  
-        <div>
-          <label className="block mb-1 font-medium text-slate-700">Сообщение</label>
-          <textarea
-            value={sms}
-            onChange={(e) => setSms(e.target.value)}
-            className="w-full px-3 py-2 border rounded"
-            rows={3}
-            required
-          />
-        </div>
-  
-        <div className="flex justify-end gap-2">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="px-4 py-2 bg-slate-200 text-slate-700 rounded hover:bg-slate-300"
-          >
-            Отмена
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
-          >
-            Добавить
-          </button>
-        </div>
-      </form>
+        <motion.div
+            layout
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ type: 'spring' }}
+            className={`flex items-start gap-4 p-4 bg-white rounded-xl shadow-md border-l-4 transition-colors ${isDone ? 'border-green-400 bg-green-50/50' : 'border-teal-400'}`}
+        >
+            {/* Блок с датой */}
+            <div className="flex flex-col items-center justify-center w-16 text-center flex-shrink-0">
+                <p className="text-xs font-bold text-teal-600 uppercase">{month.replace('.', '')}</p>
+                <p className="text-3xl font-extrabold text-slate-800">{day}</p>
+            </div>
+
+            {/* Блок с информацией */}
+            <div className="flex-grow">
+                <p className={`font-semibold text-slate-800 ${isDone ? 'line-through text-slate-500' : ''}`}>
+                    {reminder.assistant_sms}
+                </p>
+                <div className="flex items-center gap-2 text-sm text-slate-500 mt-1">
+                    <div className={`p-1 rounded-full ${isDone ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-500'}`}>
+                        {getIconForReminder(reminder.assistant_sms)}
+                    </div>
+                    <span>{reminder.animalName}</span>
+                </div>
+            </div>
+
+            {/* Блок с действиями */}
+            <div className="flex items-center gap-2">
+                {!isDone && (
+                    <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => onUpdateStatus(reminder.id, 'Сделано')}>
+                        <FaCheckCircle className="text-green-500" />
+                    </Button>
+                )}
+                <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => {/* TODO: Open Edit Modal */}}>
+                    <FaEdit className="text-slate-400" />
+                </Button>
+                <Button variant="ghost" className="p-2 h-8 w-8 !shadow-none" onClick={() => onDelete(reminder.id)}>
+                    <FaTrash className="text-red-400" />
+                </Button>
+            </div>
+        </motion.div>
     );
-  };
+});

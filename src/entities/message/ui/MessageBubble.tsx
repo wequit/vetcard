@@ -1,3 +1,4 @@
+// FILE: src/entities/message/ui/MessageBubble.tsx
 
 import { memo } from 'react';
 import { motion } from 'framer-motion';
@@ -16,32 +17,32 @@ export const MessageBubble = memo(({ message }: MessageBubbleProps) => {
     ? 'bg-slate-800 text-white' 
     : 'bg-slate-100 text-slate-700 ring-1 ring-slate-200';
   
-  const layoutClasses = isUser 
-    ? 'justify-end' 
-    : 'justify-start';
+  const layoutClasses = isUser ? 'justify-end' : 'justify-start';
 
   const userAvatar = (
-    <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
+    // FIX: Делаем аватар чуть меньше на мобильных
+    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
       <FaUser className="w-4 h-4 text-slate-500" />
     </div>
   );
 
   const aiAvatar = (
-    <div className="w-8 h-8">
+    <div className="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0">
         <Logo />
     </div>
   );
 
   return (
     <motion.div
-      className={`flex items-start gap-3 w-full ${layoutClasses}`}
+      // FIX: Уменьшаем отступ на мобильных
+      className={`flex items-start gap-2 sm:gap-3 w-full ${layoutClasses}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       {!isUser && aiAvatar}
-      <div className={`max-w-xl rounded-xl px-4 py-3 ${bubbleClasses}`}>
-        {/* Обработка переносов строк */}
+      {/* FIX: Ограничиваем ширину пузыря на мобильных, чтобы он не был слишком широким */}
+      <div className={`max-w-[85%] sm:max-w-xl rounded-xl px-4 py-3 ${bubbleClasses}`}>
         <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.text}</p>
       </div>
       {isUser && userAvatar}

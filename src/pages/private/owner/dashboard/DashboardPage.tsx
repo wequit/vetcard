@@ -1,82 +1,122 @@
 
-import { FaPaw, FaBell, FaPlus } from 'react-icons/fa';
-import { Button } from '@/shared/ui/Button';
 import { JSX } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { FaPaw, FaBell, FaPlus, FaCalendarCheck, FaSyringe, FaBone } from 'react-icons/fa';
+import { Button } from '@/shared/ui/Button';
 import { mockReminder } from '@/entities/assistant/model/mock';
 
+const useUser = () => ({ 
+    name: 'Адиль',
+    petsCount: 3,
+    remindersCount: mockReminder.filter(r => r.status === 'Запланировано').length 
+});
 
-const useUser = () => ({ name: 'Адиль' });
-
-
-const StatCard = ({ icon, title, value, color }: { icon: JSX.Element, title: string, value: string | number, color: string }) => (
-    <div className="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
-        <div className={`p-3 rounded-full ${color}`}>
-            {icon}
-        </div>
-        <div>
-            <p className="text-sm text-slate-500">{title}</p>
-            <p className="text-2xl font-bold text-slate-800">{value}</p>
-        </div>
-    </div>
+const StatCard = ({ icon, title, value, color, to }: { icon: JSX.Element, title: string, value: string | number, color: string, to: string }) => (
+    <motion.div whileHover={{ y: -5}}>
+        <Link to={to} className={`block p-6 rounded-2xl shadow-md transition-all duration-300 ${color}`}>
+            <div className="flex justify-between items-start">
+                <div className="flex flex-col">
+                    <p className="text-sm font-medium opacity-80">{title}</p>
+                    <p className="text-3xl font-bold mt-1">{value}</p>
+                </div>
+                <div className="text-3xl opacity-60">
+                    {icon}
+                </div>
+            </div>
+        </Link>
+    </motion.div>
 );
 
 const QuickActionsWidget = () => (
-    <div className="bg-white p-6 rounded-xl shadow-md">
+    <div className="bg-white p-6 rounded-2xl shadow-lg h-full">
         <h3 className="font-bold text-slate-800 mb-4">Быстрые действия</h3>
         <div className="space-y-3">
-            <Button to="/mypets/new" variant="outline" className="w-full justify-start text-left"><FaPlus className="mr-3"/> Добавить питомца</Button>
-            <Button to="/reminders/new" variant="outline" className="w-full justify-start text-left"><FaBell className="mr-3"/> Создать напоминание</Button>
+            <Button to="/add-pet" variant="outline" className="w-full justify-start text-left text-base py-3">
+                <FaPlus className="mr-3 text-teal-500"/> Добавить питомца
+            </Button>
+         
         </div>
     </div>
 );
 
-
 const UpcomingRemindersWidget = () => {
-    // Оставляем только запланированные и сортируем по дате
     const upcoming = mockReminder
         .filter((reminder) => reminder.status === 'Запланировано')
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-        .slice(0, 3); // можно ограничить, например, 3 ближайших
+        .slice(0, 4); 
+
+    const getIconForReminder = (text: string) => {
+        const lowerText = text.toLowerCase();
+        if (lowerText.includes('прививка') || lowerText.includes('вакцинация')) return <FaSyringe />;
+        if (lowerText.includes('корм')) return <FaBone />;
+        return <FaCalendarCheck />;
+    };
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-md">
-            <h3 className="font-bold text-slate-800 mb-4">Ближайшие напоминания</h3>
+        <div className="bg-white p-6 rounded-2xl shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-slate-800">Ближайшие события</h3>
+                <Link to="/reminders" className="text-sm font-medium text-teal-600 hover:text-teal-500">Все</Link>
+            </div>
             {upcoming.length > 0 ? (
-                <ul className="space-y-3">
+                <ul className="space-y-2">
                     {upcoming.map((reminder) => (
-                        <li key={reminder.id} className="flex flex-col text-sm border-b pb-2">
-                            <span className="text-slate-600 font-medium">{reminder.assistant_sms}</span>
-                            <span className="text-slate-500">Питомец: {reminder.animalName}</span>
-                            <span className="text-slate-800 font-semibold">Дата: {reminder.date}</span>
+                        <li key={reminder.id} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div className="p-3 bg-slate-100 text-slate-500 rounded-full">
+                                {getIconForReminder(reminder.assistant_sms)}
+                            </div>
+                            <div className="flex-grow">
+                                <p className="font-semibold text-slate-700">{reminder.assistant_sms}</p>
+                                <p className="text-xs text-slate-500">Питомец: {reminder.animalName}</p>
+                            </div>
+                            <div className="text-sm font-medium text-slate-800 text-right">
+                                {new Date(reminder.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}
+                            </div>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p className="text-slate-500">Нет запланированных напоминаний.</p>
+                <div className="text-center py-8">
+                    <FaBell className="mx-auto text-4xl text-slate-300 mb-2" />
+                    <p className="text-slate-500 text-sm">Нет запланированных напоминаний.</p>
+                </div>
             )}
         </div>
     );
 };
 
+
 export const DashboardPage = () => {
-    const { name } = useUser();
+    const { name, petsCount, remindersCount } = useUser();
+    const today = new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
 
     return (
         <div className="space-y-8">
-            {/* Приветствие */}
-            <header>
-                <h1 className="text-3xl font-bold text-slate-900">Добро пожаловать, {name}!</h1>
-                <p className="mt-1 text-slate-600">Вот краткая сводка по вашему аккаунту.</p>
+            <header className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-slate-900">Добро пожаловать, {name}!</h1>
+                    <p className="mt-1 text-slate-500 capitalize">{today}</p>
+                </div>
             </header>
 
-            {/* Сетка со статистикой */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <StatCard icon={<FaPaw />} title="Активных питомцев" value="3" color="bg-teal-100 text-teal-600" />
-                <StatCard icon={<FaBell />} title="Ближайших событий" value="2" color="bg-amber-100 text-amber-600" />
-                {/* ... другие карточки */}
+                <StatCard 
+                    icon={<FaPaw />} 
+                    title="Активных питомцев" 
+                    value={petsCount} 
+                    color="bg-teal-50 text-teal-600" 
+                    to="/mypets"
+                />
+                <StatCard 
+                    icon={<FaBell />} 
+                    title="Ближайших событий" 
+                    value={remindersCount} 
+                    color="bg-amber-50 text-amber-600" 
+                    to="/reminders"
+                />
             </div>
 
-            {/* Сетка с виджетами */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2">
                     <UpcomingRemindersWidget />

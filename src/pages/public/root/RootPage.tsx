@@ -7,8 +7,6 @@ export const RootPage = () => {
     const { isAuthenticated } = useAuth();
     const userHomePath = '/dashboard'; 
 
-  
-
     if (isAuthenticated) {
         return <Navigate to={userHomePath} replace />;
     }
