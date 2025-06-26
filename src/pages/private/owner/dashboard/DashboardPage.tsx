@@ -2,6 +2,8 @@
 import { FaPaw, FaBell, FaPlus } from 'react-icons/fa';
 import { Button } from '@/shared/ui/Button';
 import { JSX } from 'react';
+import { mockReminder } from '@/entities/assistant/model/mock';
+
 
 const useUser = () => ({ name: 'Адиль' });
 
@@ -28,26 +30,33 @@ const QuickActionsWidget = () => (
     </div>
 );
 
+
 const UpcomingRemindersWidget = () => {
-    const reminders = [
-        { id: 1, text: 'Ежегодная прививка для Рекса', date: '28.06.2025' },
-        { id: 2, text: 'Прием таблетки от клещей', date: '01.07.2025' },
-    ];
+    // Оставляем только запланированные и сортируем по дате
+    const upcoming = mockReminder
+        .filter((reminder) => reminder.status === 'Запланировано')
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .slice(0, 3); // можно ограничить, например, 3 ближайших
+
     return (
         <div className="bg-white p-6 rounded-xl shadow-md">
             <h3 className="font-bold text-slate-800 mb-4">Ближайшие напоминания</h3>
-            <ul className="space-y-3">
-                {reminders.map(r => (
-                    <li key={r.id} className="flex justify-between items-center text-sm">
-                        <span className="text-slate-600">{r.text}</span>
-                        <span className="font-medium text-slate-800">{r.date}</span>
-                    </li>
-                ))}
-            </ul>
+            {upcoming.length > 0 ? (
+                <ul className="space-y-3">
+                    {upcoming.map((reminder) => (
+                        <li key={reminder.id} className="flex flex-col text-sm border-b pb-2">
+                            <span className="text-slate-600 font-medium">{reminder.assistant_sms}</span>
+                            <span className="text-slate-500">Питомец: {reminder.animalName}</span>
+                            <span className="text-slate-800 font-semibold">Дата: {reminder.date}</span>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="text-slate-500">Нет запланированных напоминаний.</p>
+            )}
         </div>
     );
 };
-
 
 export const DashboardPage = () => {
     const { name } = useUser();
