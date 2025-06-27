@@ -20,7 +20,7 @@ const SidebarContent = ({ isCollapsed, onCollapseToggle, navConfig, onCloseMobil
 
     return (
         <div className="flex flex-col h-full">
-            <div className="p-4 h-16 flex justify-between items-center border-b border-slate-200 flex-shrink-0">
+            <div className="p-4 h-17 flex justify-between items-center border-b border-slate-200 flex-shrink-0">
                 <div className="flex items-center">
                     <Logo />
                 </div>

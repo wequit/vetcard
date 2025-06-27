@@ -59,8 +59,8 @@ export const Chat = () => {
     };
 
     return (
-        <div className="bg-white rounded-2xl border border-slate-200 flex flex-col h-[80vh] sm:h-[75vh]">
-            <div className="flex-1 p-3 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto">
+        <div className="bg-white  border-slate-200 flex flex-col h-[80vh] sm:h-[75vh]">
+            <div className="flex-1 p-3 overflow-y-auto">
                 <AnimatePresence>
                     {messages.length === 0 && !isLoading ? (
                         <WelcomeScreen onSuggestionClick={(text) => handleSend(text)} />
