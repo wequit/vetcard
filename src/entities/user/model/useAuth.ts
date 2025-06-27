@@ -5,6 +5,7 @@ interface User {
   name: string;
   avatarUrl: string | null;
   role: 'owner' | 'professional';
+  userType?: string;
 }
 
 let authState: { isAuthenticated: boolean; user: User | null } = {

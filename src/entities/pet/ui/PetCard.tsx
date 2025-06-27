@@ -41,7 +41,7 @@ export const PetCard = memo(({ pet }: { pet: Pet }) => {
       whileHover={{ y: -5 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      <div ref={menuRef} className="absolute top-4 right-4 z-10">
+      <div ref={menuRef} className="absolute top-4 right-4 z-1">
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors">
           <FaEllipsisV />
         </button>

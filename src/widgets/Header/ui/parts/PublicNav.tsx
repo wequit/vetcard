@@ -3,9 +3,11 @@ import { NavLink } from "@/shared/ui/NavLink";
 import { Button } from "@/shared/ui/Button";
 import { Logo } from "@/shared/ui/Logo";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const PublicNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -32,7 +34,7 @@ const PublicNav = () => {
   return (
     <div className="flex items-center justify-between w-full">
       {/* Логотип */}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate("/") }>
         <Logo />
       </div>
 
