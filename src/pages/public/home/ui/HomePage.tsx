@@ -10,7 +10,6 @@ export const HomePage = () => {
 
       <main className="overflow-hidden">
         <section className="container mx-auto px-6 py-16 sm:py-20 md:py-28 flex flex-col md:flex-row items-center gap-12">
-          {/* Text */}
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
               Забота о <span className="text-teal-600">питомце</span>  по-новому
@@ -64,11 +63,8 @@ export const HomePage = () => {
           </div>
         </section>
 
-        {/* Farm Illustration Section */}
-        {/* FIX: Адаптивные отступы и размеры текста */}
         <section className="py-16 sm:py-24 bg-[#FBFCFE]">
           <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
-            {/* Text block */}
             <div className="md:w-1/2 text-center md:text-left">
               <h3 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-4">VetCard — для всех видов животных</h3>
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
@@ -76,7 +72,6 @@ export const HomePage = () => {
               </p>
             </div>
 
-            {/* Illustration block */}
             <div className="md:w-1/2">
               <img
                 src={AboutPhoto}
@@ -91,7 +86,6 @@ export const HomePage = () => {
   );
 };
 
-// Компонент Feature уже хорошо адаптируется, можно оставить без изменений
 const Feature = ({ icon, title, children }: { icon: string; title: string; children: string }) => (
   <div className="bg-white border border-slate-100 rounded-2xl shadow-lg p-6 text-center transition hover:scale-105 hover:shadow-xl">
     <div className="text-4xl sm:text-5xl mb-4">{icon}</div>

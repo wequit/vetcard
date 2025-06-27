@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/shared/ui/Button";
 
-// Интерфейс профиля (без изменений)
 export interface VetProfile {
     fullName: string;
     description: string;
@@ -14,7 +13,6 @@ export interface VetProfile {
     coverUrl: string;
 }
 
-// Вспомогательные компоненты (без изменений)
 type FormFieldProps = {
     label: string;
     name: string;
@@ -55,8 +53,6 @@ const FormSection = ({ title, description, children }: { title: string, descript
     </div>
 );
 
-
-// ОСНОВНОЙ КОМПОНЕНТ ФОРМЫ
 export const EditVetProfileForm = ({ initialData, onSave, onCancel }: {
     initialData: VetProfile;
     onSave: (data: VetProfile) => void;

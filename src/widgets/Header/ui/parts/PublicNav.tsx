@@ -33,12 +33,10 @@ const PublicNav = () => {
 
   return (
     <div className="flex items-center justify-between w-full">
-      {/* Логотип */}
       <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate("/") }>
         <Logo />
       </div>
 
-      {/* Навигация для десктопа */}
       <nav className="hidden md:flex items-center gap-6">
         <NavLink to="/">Главная</NavLink>
         <NavLink to="/about">О проекте</NavLink>
@@ -50,7 +48,6 @@ const PublicNav = () => {
         </Button>
       </nav>
 
-      {/* Кнопка бургер-меню для мобильных устройств */}
       <div className="md:hidden">
         <button
           onClick={toggleMenu}
@@ -65,7 +62,6 @@ const PublicNav = () => {
         </button>
       </div>
 
-      {/* Контейнер для анимированного мобильного меню */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
@@ -75,7 +71,6 @@ const PublicNav = () => {
             exit="hidden"
             className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-b border-slate-200 md:hidden flex flex-col items-center gap-5 py-5"
           >
-            {/* Теперь NavLink с onClick будет работать без ошибок */}
             <NavLink to="/" onClick={toggleMenu}>
               Главная
             </NavLink>

@@ -1,9 +1,10 @@
 
-import { useState, useMemo } from 'react'; 
+import { useState, useMemo } from 'react';
 import { FaNewspaper } from 'react-icons/fa';
 import { mockArticles } from '@/entities/article/model/mock';
 import { ArticleCard } from '@/entities/article/ui/ArticleCard';
 import { SearchArticles } from '@/features/search-articles/ui/SearchArticles';
+import { CategoryPicker } from '@/features/search-articles/ui/parts/CategoryPicker';
 
 const categories = ['Все', 'Питание', 'Уход', 'Здоровье', 'Поведение'];
 
@@ -19,7 +20,7 @@ export const ArticlesPage = () => {
         }
 
         if (searchQuery.trim() !== '') {
-            articles = articles.filter(article => 
+            articles = articles.filter(article =>
                 article.title.toLowerCase().includes(searchQuery.toLowerCase())
             );
         }
@@ -40,20 +41,29 @@ export const ArticlesPage = () => {
                 <SearchArticles value={searchQuery} onChange={setSearchQuery} />
             </header>
 
-            <div className="flex items-center gap-2 border-b border-slate-200 pb-2 overflow-x-auto">
+            <div className="hidden sm:flex items-center gap-2 border-b border-slate-200 pb-3 overflow-x-auto
+                   [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {categories.map(category => (
-                    <button 
+                    <button
                         key={category}
                         onClick={() => setActiveCategory(category)}
-                        className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${
-                            activeCategory === category 
-                                ? 'bg-teal-500 text-white shadow' 
-                                : 'text-slate-600 hover:bg-slate-100'
-                        }`}
+                        className={`px-4 py-2 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${activeCategory === category
+                                ? 'bg-teal-500 text-white shadow'
+                                : 'text-slate-600 hover:bg-slate-200'
+                            }`}
                     >
                         {category}
                     </button>
                 ))}
+            </div>
+
+            {/* ВАРИАНТ ДЛЯ МОБИЛЬНЫХ (МЕНЬШЕ SM) */}
+            <div className="sm:hidden">
+                <CategoryPicker
+                    categories={categories}
+                    activeCategory={activeCategory}
+                    onCategoryChange={setActiveCategory}
+                />
             </div>
 
             {filteredArticles.length > 0 ? (
