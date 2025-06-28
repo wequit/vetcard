@@ -1,0 +1,54 @@
+{
+    "home": "Башкы бет",
+    "about": "Долбоор тууралуу",
+    "login": "Кирүү",
+    "register": "Катталуу",
+    "auth": {
+      "login": "Логин",
+      "password": "Сырсөз",
+      "loginPlaceholder": "Логинди киргизиңиз",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Кирүү",
+      "loading": "Кирүүдө...",
+      "error": "Туура эмес логин же сырсөз"
+    },
+    "navigation": {
+      "dashboard": "Башкаруу панели",
+      "myPets": "Менин жаныбарларым",
+      "articles": "Макалалар",
+      "products": "Товарлар",
+      "reminders": "Эскертүүлөр",
+      "assistant": "Жардамчы",
+      "myData": "Менин маалыматым",
+      "profile": "Профиль"
+    },
+    "common": {
+      "add": "Кошуу",
+      "edit": "Оңдоо",
+      "delete": "Жоюу",
+      "save": "Сактоо",
+      "cancel": "Жокко чыгаруу",
+      "close": "Жабуу",
+      "search": "Издөө",
+      "loading": "Жүктөлүүдө...",
+      "error": "Ката",
+      "success": "Ийгиликтүү"
+    },
+    "pets": {
+      "addPet": "Жаныбар кошуу",
+      "editPet": "Жаныбарды оңдоо",
+      "deletePet": "Жаныбарды жоюу",
+      "name": "Аты",
+      "type": "Түрү",
+      "breed": "Ириси",
+      "age": "Жашы",
+      "weight": "Салмагы",
+      "description": "Сүрөттөмө"
+    },
+    "forms": {
+      "required": "Милдеттүү талаа",
+      "invalidEmail": "Email форматы туура эмес",
+      "passwordTooShort": "Сырсөз кеминде 6 белгиден турушу керек"
+    }
+  }
+  

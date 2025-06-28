@@ -2,10 +2,13 @@ import { useState } from "react";
 import { NavLink } from "@/shared/ui/NavLink"; 
 import { Button } from "@/shared/ui/Button";
 import { Logo } from "@/shared/ui/Logo";
+import { LanguageSwitcher } from "@/shared/ui/LanguageSwitcher";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const PublicNav = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -38,13 +41,14 @@ const PublicNav = () => {
       </div>
 
       <nav className="hidden md:flex items-center gap-6">
-        <NavLink to="/">Главная</NavLink>
-        <NavLink to="/about">О проекте</NavLink>
+        <NavLink to="/">{t("home")}</NavLink>
+        <NavLink to="/about">{t("about")}</NavLink>
+        <LanguageSwitcher />
         <Button to="/login" variant="outline" className="text-sm py-2 px-4">
-          Войти
+          {t("login")}
         </Button>
         <Button to="/register" variant="primary" className="text-sm py-2 px-4">
-          Регистрация
+          {t("register")}
         </Button>
       </nav>
 
@@ -72,18 +76,19 @@ const PublicNav = () => {
             className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-b border-slate-200 md:hidden flex flex-col items-center gap-5 py-5"
           >
             <NavLink to="/" onClick={toggleMenu}>
-              Главная
+              {t("home")}
             </NavLink>
             <NavLink to="/about" onClick={toggleMenu}>
-              О проекте
+              {t("about")}
             </NavLink>
+            <LanguageSwitcher />
             <hr className="w-11/12 border-slate-200" />
             <div className="flex flex-col gap-4 w-11/12 max-w-xs">
               <Button to="/login" variant="outline" className="w-full" onClick={toggleMenu}>
-                Войти
+                {t("login")}
               </Button>
               <Button to="/register" variant="primary" className="w-full" onClick={toggleMenu}>
-                Регистрация
+                {t("register")}
               </Button>
             </div>
           </motion.nav>

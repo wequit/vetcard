@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/entities/user/model/useAuth";
+import { useTranslation } from "react-i18next";
 
 export const LoginFields = () => {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ export const LoginFields = () => {
       login({ name: "Владелец", avatarUrl: null, role: "owner" });
       navigate("/dashboard");
     } else {
-      setError("Неверный логин или пароль");
+      setError(t("auth.error"));
     }
     setLoading(false);
   };
@@ -33,34 +36,44 @@ export const LoginFields = () => {
     <form onSubmit={handleSubmit} className="space-y-6">
       <Input
         id="login"
-        label="Логин"
+        label={t("auth.login")}
         type="text"
-        placeholder="Введите логин"
+        placeholder={t("auth.loginPlaceholder")}
         value={username}
         onChange={e => setUsername(e.target.value)}
         required
         icon={<FaEnvelope className="text-gray-400" />}
       />
-      <Input
-        id="password"
-        label="Пароль"
-        type="password"
-        placeholder="••••••••"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-        icon={<FaLock className="text-gray-400" />}
-      />
+
+      {/* Поле пароля с глазком */}
+      <div className="relative">
+        <Input
+          id="password"
+          label={t("auth.password")}
+          type={showPassword ? "text" : "password"}
+          placeholder={t("auth.passwordPlaceholder")}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+          icon={<FaLock className="text-gray-400" />}
+        />
+        <div
+          className="absolute right-3 top-[38px] cursor-pointer text-gray-400"
+          onClick={() => setShowPassword(prev => !prev)}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </div>
+      </div>
 
       {error && (
         <div className="text-red-700 bg-red-100 border border-red-200 p-3 rounded-md text-sm text-center animate-pulse">
-            {error}
+          {error}
         </div>
       )}
 
       <div className="flex justify-center">
         <Button type="submit" variant="primary" className="w-32" disabled={loading}>
-            {loading ? 'Входим...' : 'Войти'}
+          {loading ? t("auth.loading") : t("auth.submit")}
         </Button>
       </div>
     </form>

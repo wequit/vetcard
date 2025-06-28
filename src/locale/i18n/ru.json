@@ -1,0 +1,53 @@
+{
+    "home": "Главная",
+    "about": "О проекте",
+    "login": "Войти",
+    "register": "Регистрация",
+    "auth": {
+      "login": "Логин",
+      "password": "Пароль",
+      "loginPlaceholder": "Введите логин",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Войти",
+      "loading": "Входим...",
+      "error": "Неверный логин или пароль"
+    },
+    "navigation": {
+      "dashboard": "Панель управления",
+      "myPets": "Мои питомцы",
+      "articles": "Статьи",
+      "products": "Товары",
+      "reminders": "Напоминания",
+      "assistant": "Помощник",
+      "myData": "Мои данные",
+      "profile": "Профиль"
+    },
+    "common": {
+      "add": "Добавить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "close": "Закрыть",
+      "search": "Поиск",
+      "loading": "Загрузка...",
+      "error": "Ошибка",
+      "success": "Успешно"
+    },
+    "pets": {
+      "addPet": "Добавить питомца",
+      "editPet": "Редактировать питомца",
+      "deletePet": "Удалить питомца",
+      "name": "Имя",
+      "type": "Тип",
+      "breed": "Порода",
+      "age": "Возраст",
+      "weight": "Вес",
+      "description": "Описание"
+    },
+    "forms": {
+      "required": "Обязательное поле",
+      "invalidEmail": "Неверный формат email",
+      "passwordTooShort": "Пароль должен содержать минимум 6 символов"
+    }
+  }

@@ -77,17 +77,28 @@ export const Chat = () => {
                     onSubmit={(e) => { e.preventDefault(); handleSend(input); }}
                     className="flex items-center bg-slate-100 rounded-xl p-2"
                 >
-                    <textarea
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(input); }}}
-                        placeholder="Спросите что-нибудь..."
-                        className="flex-1 bg-transparent resize-none border-none focus:ring-0 text-sm text-slate-800 placeholder-slate-500 px-2"
-                        rows={1}
-                        disabled={isLoading}
-                    />
-                    <button type="submit" disabled={isLoading || !input.trim()} className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all disabled:bg-slate-300 flex-shrink-0">
-                        <FaPaperPlane className="text-sm"/>
+                   <textarea
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onInput={(e) => {
+    const target = e.target as HTMLTextAreaElement;
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
+  }}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend(input);
+    }
+  }}
+  placeholder="Спросите что-нибудь..."
+  className="flex-1 bg-transparent resize-none border-none text-sm text-slate-800 placeholder-slate-500 px-2 outline-none focus:ring-0 focus:outline-none"
+  rows={1}
+  disabled={isLoading}
+/>
+
+                    <button type="submit" disabled={isLoading || !input.trim()} className="w-9 h-9 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all disabled:bg-slate-300">
+                        <FaPaperPlane />
                     </button>
                 </form>
             </div>
