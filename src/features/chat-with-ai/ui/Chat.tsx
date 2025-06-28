@@ -78,7 +78,7 @@ export const Chat = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 flex flex-col h-[75vh]">
+    <div className="bg-white rounded-2xl border border-slate-200 flex flex-col h-[90vh]">
       <div className="flex-1 p-6 space-y-6 overflow-y-auto">
         <AnimatePresence>
           {messages.length === 0 && !isLoading ? (
@@ -91,7 +91,7 @@ export const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="p-4 border-t border-slate-200">
+      <div className="p-4 border-t border-slate-200 ">
         <form
           onSubmit={(e) => {
             e.preventDefault();
