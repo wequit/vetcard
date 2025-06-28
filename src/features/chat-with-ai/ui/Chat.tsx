@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { FiSend } from 'react-icons/fi';
 import { Message } from '@/entities/message/model/types';
@@ -6,7 +6,7 @@ import { MessageBubble } from '@/entities/message/ui/MessageBubble';
 import { Logo } from '@/shared/ui/Logo';
 
 const TypingIndicator = () => (
-  <div className="text-slate-400 text-sm mt-2">AI печатает...</div>
+    <div className="text-slate-400 text-sm mt-2">AI печатает...</div>
 );
 
 const WelcomeScreen = ({ onSuggestionClick }: { onSuggestionClick: (text: string) => void }) => {
@@ -41,10 +41,6 @@ export const Chat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
 
   const handleSend = (text: string) => {
     if (!text.trim()) return;
