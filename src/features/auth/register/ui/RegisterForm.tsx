@@ -22,14 +22,16 @@ const MobileProgress = ({ steps, currentStep }: { steps: typeof baseSteps, curre
   return (
     <div className="md:hidden w-full mb-6">
       <div className="text-sm text-gray-600 mb-2">
-        {t('step')} {currentStep + 1} {t('of')} {steps.length}: <span className="font-semibold text-gray-800">{t(currentStepInfo.title)}</span>
+        {t('register_form.step_titles.step_indicator', { current: currentStep + 1, total: steps.length })}:{' '}
+        <span className="font-semibold text-gray-800">{t(`register_form.step_titles.${currentStepInfo.title}`)}</span>
       </div>
+
       <div className="w-full bg-gray-200 rounded-full h-2">
         <motion.div
           className="bg-blue-600 h-2 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progressPercentage}%` }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
         />
       </div>
     </div>
@@ -89,6 +91,7 @@ export const RegisterForm = () => {
   };
 
   const validateAndProceed = () => {
+    const { t } = useTranslation();
     const newErrors: Partial<typeof errors> = {};
     let isValid = true;
     switch (currentStep) {
@@ -139,8 +142,8 @@ export const RegisterForm = () => {
                       {currentStep > index ? <FaCheckCircle /> : step.number}
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">{t('step')} {step.number}</p>
-                      <p className={`font-semibold ${currentStep === index ? 'text-gray-800' : 'text-gray-600'}`}>{t(step.title)}</p>
+                      <p className="text-sm text-gray-500">{t("register_form.step_titles.step")} {step.number}</p>
+                      <p className={`font-semibold ${currentStep === index ? 'text-gray-800' : 'text-gray-600'}`}>{t(`register_form.step_titles.${step.title}`)}</p>
                     </div>
                   </motion.li>
                 ))}
