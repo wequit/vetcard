@@ -1,6 +1,8 @@
 import { Logo } from '@/shared/ui/Logo';
 import { Link } from 'react-router-dom';
 import {  FaTelegram, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { useTranslation } from "react-i18next";
+
 
 const FooterLinkColumn = ({ title, links }: { title: string, links: { href: string, text: string }[] }) => (
     <div>
@@ -18,15 +20,17 @@ const FooterLinkColumn = ({ title, links }: { title: string, links: { href: stri
 );
 
 export const Footer = () => {
+    const { t } = useTranslation();
+
     const navigationLinks = [
-        { href: '/articles', text: 'Статьи' },
-        { href: '/products', text: 'Товары' },
-        { href: '/assistant', text: 'AI Ассистент' },
+        { href: '/articles', text: t("footer.article") },
+        { href: '/products', text: t("footer.products") },
+        { href: '/assistant', text: t("footer.assistant") },
     ];
     const supportLinks = [
-        { href: '/about', text: 'О проекте' },
-        { href: '/support#faq', text: 'Частые вопросы' },
-        { href: '/support#contacts', text: 'Контакты' },
+        { href: '/about', text: t ("footer.about") },
+        { href: '/support#faq', text: t ("footer.faq")  },
+        { href: '/support#contacts', text: t ("footer.contacts") },
     ];
 
     return (
@@ -37,23 +41,23 @@ export const Footer = () => {
                     <div className="col-span-2 md:col-span-1">
                         <Logo />
                         <p className="mt-3 text-slate-500 text-sm">
-                            Ваш цифровой паспорт для здоровья питомца.
+                        {t ("footer.text1")}
                         </p>
                     </div>
 
                     <div className="hidden md:block md:col-span-2"></div>
 
-                    <FooterLinkColumn title="Навигация" links={navigationLinks} />
-                    <FooterLinkColumn title="Поддержка" links={supportLinks} />
+                    <FooterLinkColumn title={t ("footer.navigation")} links={navigationLinks} />
+                    <FooterLinkColumn title={t ("footer.support")}  links={supportLinks} />
                     
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-y-4">
                     <div className="text-xs text-slate-500 text-center sm:text-left">
-                        <div>© {new Date().getFullYear()} VetCard. Все права защищены.</div>
+                        <div>© {new Date().getFullYear()} {t ("footer.rights")}</div>
                         <div className='mt-2 sm:mt-0 flex flex-col sm:flex-row gap-y-2 gap-x-4'>
-                            <Link to="/support#terms" className="hover:text-slate-900">Условия использования</Link>
-                            <Link to="/support#privacy" className="hover:text-slate-900">Политика конфиденциальности</Link>
+                            <Link to="/support#terms" className="hover:text-slate-900">{t ("footer.terms")}</Link>
+                            <Link to="/support#privacy" className="hover:text-slate-900">{t ("footer.policy")}</Link>
                         </div>
                     </div>
                     <div className="flex items-center space-x-4">

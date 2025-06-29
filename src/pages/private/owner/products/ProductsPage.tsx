@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { FaShoppingBag, FaSearch } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 import { mockProducts } from '@/entities/product/model/ProductMock';
 import { ProductList } from '@/entities/product/ui/ProductList';
 import { ProductModal } from '@/entities/product/ui/ProductModal';
 import type { Product } from '@/entities/product/model/ProductTypes';
 
 export const ProductsPage = () => {
+    const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -18,7 +20,7 @@ export const ProductsPage = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-center gap-3 text-2xl sm:text-3xl font-bold text-slate-900">
                     <FaShoppingBag className="text-teal-500" />
-                    Товары и Услуги
+                    {t('products.title')}
                 </div>
 
                 <div className="relative w-full md:w-1/3">
@@ -27,7 +29,7 @@ export const ProductsPage = () => {
                     </span>
                     <input
                         type="text"
-                        placeholder="Поиск по названию..."
+                        placeholder={t('products.searchPlaceholder')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
@@ -36,7 +38,7 @@ export const ProductsPage = () => {
             </div>
 
             <p className="text-slate-600">
-                Рекомендованные товары и услуги от наших партнеров.
+                {t('products.subtitle')}
             </p>
 
             <ProductList products={filteredProducts} onProductClick={setSelectedProduct} />

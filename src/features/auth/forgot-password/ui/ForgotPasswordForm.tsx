@@ -2,14 +2,17 @@ import { useForgotPassword } from "../model/useForgotPassword";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/Button";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 export const ForgotPasswordForm = () => {
+  const { t } = useTranslation();
   const { step, loading, error, sendEmail, verifyCode, resetPassword, email } = useForgotPassword();
   const [input, setInput] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   if (step === "done") {
-    return <div>Пароль успешно изменён! Теперь вы можете войти.</div>;
+    return <div>{t ("forgotPassword.success")}</div>;
   }
 
   return (
@@ -26,28 +29,28 @@ export const ForgotPasswordForm = () => {
         <>
           <Input
             type="email"
-            placeholder="Введите email"
+            placeholder={t ("forgotPassword.emailPlaceholder")}
             value={input}
             onChange={e => setInput(e.target.value)}
             required
           />
           <Button type="submit" variant="primary" disabled={loading}>
-            Отправить код
-          </Button>
+          {t ("forgotPassword.sendCode")}        
+            </Button>
         </>
       )}
       {step === "code" && (
         <>
-          <div>Код отправлен на {email}</div>
+          <div> {t ("forgotPassword.codeSent")} {email}</div>
           <Input
             type="text"
-            placeholder="Введите код из письма"
+            placeholder={t ("forgotPassword.codePlaceholder")} 
             value={input}
             onChange={e => setInput(e.target.value)}
             required
           />
           <Button type="submit" variant="primary" disabled={loading}>
-            Проверить код
+          {t ("forgotPassword.verifyCode")} 
           </Button>
         </>
       )}
@@ -55,14 +58,14 @@ export const ForgotPasswordForm = () => {
         <>
           <Input
             type="password"
-            placeholder="Новый пароль"
+            placeholder={t ("forgotPassword.newPasswordPlaceholder")} 
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
             required
           />
           <Button type="submit" variant="primary" disabled={loading}>
-            Сменить пароль
-          </Button>
+          {t ("forgotPassword.changePassword")}    
+           </Button>
         </>
       )}
       {error && <div className="text-red-500">{error}</div>}

@@ -4,22 +4,22 @@ import { FiSend } from 'react-icons/fi';
 import { Message } from '@/entities/message/model/types';
 import { MessageBubble } from '@/entities/message/ui/MessageBubble';
 import { Logo } from '@/shared/ui/Logo';
+import { useTranslation } from 'react-i18next';
 
-const TypingIndicator = () => (
-  <div className="text-slate-400 text-sm mt-2">AI печатает...</div>
-);
+const TypingIndicator = () => {
+  const { t } = useTranslation();
+  return <div className="text-slate-400 text-sm mt-2">{t("chat.typing")}</div>;
+};
 
 const WelcomeScreen = ({ onSuggestionClick }: { onSuggestionClick: (text: string) => void }) => {
-  const suggestions = [
-    'Какой корм лучше для щенка?',
-    'Как часто нужно делать прививки?',
-    'Признаки здорового питомца',
-  ];
+  const { t } = useTranslation();
+  const suggestions = t("chat.suggestions", { returnObjects: true }) as string[];
+
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
       <Logo />
-      <h2 className="mt-4 text-2xl font-bold text-slate-800">AI Ассистент VetCard</h2>
-      <p className="mt-2 text-slate-500">Чем я могу помочь вам сегодня?</p>
+      <h2 className="mt-4 text-2xl font-bold text-slate-800">{t("chat.title")}</h2>
+      <p className="mt-2 text-slate-500">{t("chat.subtitle")}</p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         {suggestions.map((text) => (
           <button
@@ -36,6 +36,7 @@ const WelcomeScreen = ({ onSuggestionClick }: { onSuggestionClick: (text: string
 };
 
 export const Chat = () => {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +83,7 @@ export const Chat = () => {
       <div className="flex-1 p-6 space-y-6 overflow-y-auto">
         <AnimatePresence>
           {messages.length === 0 && !isLoading ? (
-            <WelcomeScreen onSuggestionClick={(text) => handleSend(text)} />
+            <WelcomeScreen onSuggestionClick={handleSend} />
           ) : (
             messages.map((msg) => <MessageBubble key={msg.id} message={msg} />)
           )}
@@ -109,7 +110,7 @@ export const Chat = () => {
                 handleSend(input);
               }
             }}
-            placeholder="Спросите что-нибудь..."
+            placeholder={t("chat.placeholder")}
             className="flex-1 bg-transparent resize-none border-none outline-none focus:ring-0 text-sm text-slate-800 placeholder-slate-500 px-2 max-h-40 overflow-y-auto"
             rows={1}
             disabled={isLoading}

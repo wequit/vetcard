@@ -1,7 +1,11 @@
 import { Header } from "@/widgets/Header/ui/Header";
 import AboutPhoto from "@/assets/images/about.svg";
+import { useTranslation } from "react-i18next";
+
 
 export const AboutPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-lime-50 to-green-100 text-slate-900">
       <Header />
@@ -17,15 +21,15 @@ export const AboutPage = () => {
 
         <div className="w-full md:w-1/2 text-left">
           <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-8">
-            VetCard — помощник для хвостиков
+            {t ("aboutPage.aboutTheme")}
           </h1>
 
           <p className="text-lg md:text-xl mb-6 leading-relaxed">
-            Каждый питомец заслуживает заботы и внимания. Приложение VetCard помогает владельцам животных и ветеринарам быть на связи и отслеживать здоровье хвостатых друзей.
-          </p>
+          {t ("aboutPage.aboutText1")}         
+           </p>
 
           <p className="text-lg md:text-xl mb-8 leading-relaxed">
-            Вы всегда будете в курсе прививок, приёмов у врача и истории болезни. Всё под рукой — в один клик.
+          {t ("aboutPage.aboutText2")}         
           </p>
 
 
