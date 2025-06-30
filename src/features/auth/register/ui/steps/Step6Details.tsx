@@ -1,5 +1,5 @@
-
 import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormInput } from '@/shared/ui/FormInput';
 import { StepWrapper } from '@/shared/ui/StepWrapper';
 import type { StepProps } from '../types';
@@ -10,7 +10,7 @@ import { cities } from '@/entities/register/model/cities';
 import { AutocompleteInput } from '@/shared/ui/AutocompleteInput';
 
 type Step5Props = StepProps & {
-    handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Step6Details = memo(({ data, updateField, handleFileChange }: Step5Props) => {

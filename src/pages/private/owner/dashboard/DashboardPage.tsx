@@ -1,10 +1,10 @@
-
 import { JSX } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaPaw, FaBell, FaPlus, FaCalendarCheck, FaSyringe, FaBone } from 'react-icons/fa';
 import { Button } from '@/shared/ui/Button';
 import { mockReminder } from '@/entities/assistant/model/mock';
+import { useTranslation } from 'react-i18next';
 
 const useUser = () => ({ 
     name: 'Адиль',
@@ -13,7 +13,7 @@ const useUser = () => ({
 });
 
 const StatCard = ({ icon, title, value, color, to }: { icon: JSX.Element, title: string, value: string | number, color: string, to: string }) => (
-    <motion.div whileHover={{ y: -5}}>
+    <motion.div whileHover={{ y: -5 }}>
         <Link to={to} className={`block p-6 rounded-2xl shadow-md transition-all duration-300 ${color}`}>
             <div className="flex justify-between items-start">
                 <div className="flex flex-col">
@@ -28,19 +28,23 @@ const StatCard = ({ icon, title, value, color, to }: { icon: JSX.Element, title:
     </motion.div>
 );
 
-const QuickActionsWidget = () => (
-    <div className="bg-white p-6 rounded-2xl shadow-lg h-full">
-        <h3 className="font-bold text-slate-800 mb-4">Быстрые действия</h3>
-        <div className="space-y-3">
-            <Button to="/add-pet" variant="outline" className="w-full justify-start text-left text-base py-3">
-                <FaPlus className="mr-3 text-teal-500"/> Добавить питомца
-            </Button>
-         
+const QuickActionsWidget = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="bg-white p-6 rounded-2xl shadow-lg h-full">
+            <h3 className="font-bold text-slate-800 mb-4">{t("dashboard.quickActions")}</h3>
+            <div className="space-y-3">
+                <Button to="/add-pet" variant="outline" className="w-full justify-start text-left text-base py-3">
+                    <FaPlus className="mr-3 text-teal-500" /> {t("dashboard.addPet")}
+                </Button>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const UpcomingRemindersWidget = () => {
+    const { t } = useTranslation();
     const upcoming = mockReminder
         .filter((reminder) => reminder.status === 'Запланировано')
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -56,8 +60,8 @@ const UpcomingRemindersWidget = () => {
     return (
         <div className="bg-white p-6 rounded-2xl shadow-lg">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-slate-800">Ближайшие события</h3>
-                <Link to="/reminders" className="text-sm font-medium text-teal-600 hover:text-teal-500">Все</Link>
+                <h3 className="font-bold text-slate-800">{t("dashboard.upcoming")}</h3>
+                <Link to="/reminders" className="text-sm font-medium text-teal-600 hover:text-teal-500">{t("dashboard.all")}</Link>
             </div>
             {upcoming.length > 0 ? (
                 <ul className="space-y-2">
@@ -68,7 +72,7 @@ const UpcomingRemindersWidget = () => {
                             </div>
                             <div className="flex-grow">
                                 <p className="font-semibold text-slate-700">{reminder.assistant_sms}</p>
-                                <p className="text-xs text-slate-500">Питомец: {reminder.animalName}</p>
+                                <p className="text-xs text-slate-500">{t("dashboard.pet")}: {reminder.animalName}</p>
                             </div>
                             <div className="text-sm font-medium text-slate-800 text-right">
                                 {new Date(reminder.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}
@@ -79,7 +83,7 @@ const UpcomingRemindersWidget = () => {
             ) : (
                 <div className="text-center py-8">
                     <FaBell className="mx-auto text-4xl text-slate-300 mb-2" />
-                    <p className="text-slate-500 text-sm">Нет запланированных напоминаний.</p>
+                    <p className="text-slate-500 text-sm">{t("dashboard.noReminders")}</p>
                 </div>
             )}
         </div>
@@ -89,13 +93,14 @@ const UpcomingRemindersWidget = () => {
 
 export const DashboardPage = () => {
     const { name, petsCount, remindersCount } = useUser();
+    const { t } = useTranslation();
     const today = new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
 
     return (
         <div className="space-y-8">
             <header className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900">Добро пожаловать, {name}!</h1>
+                    <h1 className="text-3xl font-bold text-slate-900">{t("dashboard.welcome", { name })}</h1>
                     <p className="mt-1 text-slate-500 capitalize">{today}</p>
                 </div>
             </header>
@@ -103,14 +108,14 @@ export const DashboardPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard 
                     icon={<FaPaw />} 
-                    title="Активных питомцев" 
+                    title={t("dashboard.pets")} 
                     value={petsCount} 
                     color="bg-teal-50 text-teal-600" 
                     to="/mypets"
                 />
                 <StatCard 
                     icon={<FaBell />} 
-                    title="Ближайших событий" 
+                    title={t("dashboard.events")} 
                     value={remindersCount} 
                     color="bg-amber-50 text-amber-600" 
                     to="/reminders"

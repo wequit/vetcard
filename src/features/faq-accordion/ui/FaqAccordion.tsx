@@ -1,11 +1,11 @@
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 interface FaqItem {
-  question: string;
-  answer: string;
+  questionKey: string;
+  answerKey: string;
 }
 
 interface FaqAccordionProps {
@@ -13,6 +13,7 @@ interface FaqAccordionProps {
 }
 
 export const FaqAccordion = ({ items }: FaqAccordionProps) => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState<number | null>(0); 
 
   const handleClick = (index: number) => {
@@ -27,7 +28,7 @@ export const FaqAccordion = ({ items }: FaqAccordionProps) => {
             onClick={() => handleClick(index)}
             className="w-full flex justify-between items-center py-4 text-left"
           >
-            <span className="font-semibold text-slate-800">{item.question}</span>
+            <span className="font-semibold text-slate-800">{t(item.questionKey)}</span>
             <motion.div
               animate={{ rotate: activeIndex === index ? 180 : 0 }}
               transition={{ duration: 0.2 }}
@@ -45,7 +46,7 @@ export const FaqAccordion = ({ items }: FaqAccordionProps) => {
                 className="overflow-hidden"
               >
                 <div className="pb-4 text-slate-600 prose prose-sm max-w-none">
-                  {item.answer}
+                  {t(item.answerKey)}
                 </div>
               </motion.div>
             )}
