@@ -10,9 +10,11 @@ interface UserState {
     logout: () => void;
 }
 
+const savedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+
 export const useUserStore = create<UserState>((set) => ({
-    user: null,
-    isAuthenticated: false,
+    user: savedUser ? JSON.parse(savedUser) : null,
+    isAuthenticated: !!savedUser,
     isLoading: false,
     setUser: (user) => set({ user, isAuthenticated: !!user, isLoading: false }),
     setLoading: (loading) => set({ isLoading: loading }),

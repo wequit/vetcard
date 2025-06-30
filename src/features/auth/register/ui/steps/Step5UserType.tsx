@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { USER_TYPES } from '@/entities/user/model/constants';
 import type { StepProps } from '../types';
 
@@ -23,5 +22,4 @@ export const Step5UserType = memo(({ data, errors, updateField }: StepProps) => 
             })}
         </div>
     </div>
-  );
-});
+));

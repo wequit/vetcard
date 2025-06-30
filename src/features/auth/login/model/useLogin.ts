@@ -19,18 +19,12 @@ export function useLogin() {
       );
       localStorage.setItem('authToken', tokenData.access);
 
+      const accessToken = tokenData.access;
       const userProfile = await api.get<any>('/v1/auth/get_profile/', {
-        Authorization: `Bearer ${tokenData.access}`
+        Authorization: `Bearer ${accessToken}`
       });
       localStorage.setItem('user', JSON.stringify(userProfile));
-
-      const loginUser = {
-        name: `${userProfile.first_name} ${userProfile.last_name}`.trim(),
-        avatarUrl: userProfile.logo || null,
-        role: (userProfile.role === 2 ? 'professional' : 'owner') as 'professional' | 'owner',
-        userType: userProfile.role === 1 ? 'petOwner' : userProfile.role === 2 ? 'veterinarian' : 'partner',
-      };
-      if (authLogin) authLogin(loginUser);
+      if (authLogin) authLogin(userProfile, accessToken);
 
       let route = '/dashboard';
       if (userProfile.role === 2) route = '/mydata';

@@ -116,7 +116,7 @@ export const Sidebar = () => {
   const { isOpen: isMobileOpen, close: closeMobileSidebar } = useSidebarContext();
   const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
 
-  const navConfig = user?.role === 'professional' ? useProfessionalNavConfig() : useOwnerNavConfig();
+  const navConfig = user?.role === 2 ? useProfessionalNavConfig() : useOwnerNavConfig();
 
   return (
     <>

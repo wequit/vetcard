@@ -2,7 +2,6 @@ import { LoginForm } from '@/widgets/LoginForm/LoginForm';
 import LoginBackgrnd from '@/assets/images/LoginBackgrnd.svg'; 
 import LogoWhite from "@/assets/images/vet-logo 3.svg";
 import { BackButton } from '@/shared/ui/BackButton';
-import { LanguageSwitcher } from '@/shared/ui/LanguageSwitcher'; // ← Импорт
 
 export const LoginPage = () => (
   <div className="flex min-h-screen bg-white font-sans">
@@ -33,10 +32,6 @@ export const LoginPage = () => (
 
     {/* Правая часть с формой и кнопками */}
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative">
-      {/* Обертка над языком и кнопкой Назад */}
-      <div className="absolute top-4 left-10 flex items-center gap-4">
-        <LanguageSwitcher /> {/* ← Слева */}
-      </div>
 
       <div className="absolute top-4 right-4">
         <BackButton /> {/* ← Справа */}

@@ -25,10 +25,6 @@ export const useRegister = () => {
     const [serverError, setServerError] = useState<string | null>(null);
     const { login } = useAuth();
 
-    /**
-     * ЭТАП 1: Создает базовый аккаунт (логин, email, пароль).
-     * После регистрации сразу получает access/refresh токены.
-     */
     const registerInitialUser = async (
         data: Pick<UserRegistrationData, 'username' | 'email' | 'password'>,
         confirmPassword: string
@@ -45,7 +41,6 @@ export const useRegister = () => {
 
         try {
             const registeredUser = await api.post<RegisterRequestData, User>('/v1/auth/register/', requestBody);
-            console.log('Этап 1 успешно завершен. Базовый аккаунт создан:', registeredUser);
 
             const tokenData = await api.post<{ username: string; password: string }, { access: string; refresh: string }>(
                 '/v1/auth/token/',
@@ -96,24 +91,23 @@ export const useRegister = () => {
         }
         
         try {
-            const finalUser = await api.put<Record<string, any>, User>(
+            await api.put<Record<string, any>, User>(
                 `/v1/auth/profile/${user.profile_id}/`,
                 profilePayload,
                 { Authorization: `Bearer ${accessToken}` }
             );
 
-            localStorage.setItem('authToken', accessToken);
-            localStorage.setItem('user', JSON.stringify(finalUser));
+            const fullProfile = await api.get<User>('/v1/auth/get_profile/', {
+                Authorization: `Bearer ${accessToken}`
+            });
 
-            setUser(finalUser);
-            const loginUser = {
-                name: `${finalUser.first_name} ${finalUser.last_name}`.trim(),
-                avatarUrl: null,
-                role: (fullData.userType === 'veterinarian' ? 'professional' : 'owner') as 'professional' | 'owner',
-                userType: fullData.userType,
-            };
-            if (login) login(loginUser);
-            console.log('Профиль успешно обновлен! Регистрация полностью завершена.');
+            console.log('[REGISTRATION] Сохраняем user в localStorage:', fullProfile);
+
+            localStorage.setItem('authToken', accessToken);
+            localStorage.setItem('user', JSON.stringify(fullProfile));
+
+            setUser(fullProfile);
+            if (login) login(fullProfile, accessToken);
 
         } catch (error: any) {
             setServerError(error.message || 'Ошибка при сохранении данных профиля');

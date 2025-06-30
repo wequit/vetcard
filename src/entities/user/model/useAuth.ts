@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-
-interface User {
-  name: string;
-  avatarUrl: string | null;
-  role: 'owner' | 'professional';
-  userType?: string;
-}
+import type { User } from './types';
 
 let authState: { isAuthenticated: boolean; user: User | null } = {
     isAuthenticated: false,
@@ -27,8 +21,10 @@ export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(authState.isAuthenticated);
   const [user, setUser] = useState<User | null>(authState.user);
 
-  const login = (userData: User) => {
-    localStorage.setItem('authToken', 'dummy-token');
+  const login = (userData: User, accessToken?: string) => {
+    if (accessToken) {
+      localStorage.setItem('authToken', accessToken);
+    }
     localStorage.setItem('user', JSON.stringify(userData));
     authState = { isAuthenticated: true, user: userData };
     setIsAuthenticated(true);

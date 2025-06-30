@@ -43,5 +43,11 @@ export interface User {
   email: string;
   first_name: string;
   last_name: string;
+  third_name?: string;
+  phone?: string;
+  city?: string;
+  address?: string;
+  logo?: string;
+  role?: number;
   // ... и другие поля из ответа API
 }

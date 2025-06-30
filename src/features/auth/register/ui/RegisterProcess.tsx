@@ -7,6 +7,7 @@ import type { UserRegistrationData, User } from '@/entities/user/model/types';
 import { useUserStore } from '@/entities/user/model/user-store';
 import { baseSteps, vetStep, partnerStep } from '../model/steps';
 import { useRegister } from '../model/useRegister';
+import { api } from '@/shared/api';
 
 import { Step1Credentials } from './steps/Step1Credentials';
 import { Step2PersonalInfo } from './steps/Step2PersonalInfo';
@@ -110,6 +111,23 @@ export const RegisterProcess = () => {
             case 1: 
                 if (!data.email.trim() || !/\S+@\S+\.\S+/.test(data.email)) { newErrors.email = 'Введите корректный email.'; isValid = false; }
                 break;
+            case 2:
+                if (!data.verificationCode || !createdUser?.id) {
+                    newErrors.verificationCode = 'Введите код из письма.';
+                    isValid = false;
+                } else {
+                    try {
+                        await api.post<{ user_id: number; code: string }, any>(
+                            '/v1/auth/verify_code/',
+                            { user_id: createdUser.id, code: data.verificationCode },
+                            accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined
+                        );
+                    } catch (e) {
+                        newErrors.verificationCode = 'Неверный код подтверждения.';
+                        isValid = false;
+                    }
+                }
+                break;
             case 3:
                 if (!data.lastName.trim()) { newErrors.lastName = 'Пожалуйста, введите вашу фамилию.'; isValid = false; }
                 if (!data.firstName.trim()) { newErrors.firstName = 'Пожалуйста, введите ваше имя.'; isValid = false; }
@@ -157,7 +175,7 @@ export const RegisterProcess = () => {
     const stepComponents = [
         <Step1Credentials data={data} errors={errors} updateField={updateField} confirmPassword_val={confirmPassword} setConfirmPassword_val={setConfirmPassword} />,
         <Step2PersonalInfo data={data} errors={errors} updateField={updateField} />,
-        <Step3Verification data={data} errors={errors} updateField={updateField} />,
+        <Step3Verification data={data} errors={errors} updateField={updateField} userId={createdUser?.id} />,
         <Step4PersonalNames data={data} errors={errors} updateField={updateField} />,
         <Step5UserType data={data} errors={errors} updateField={updateField} />,
         <Step6Details data={data} errors={errors} updateField={updateField} handleFileChange={handleFileChange} />

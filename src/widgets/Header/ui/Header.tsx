@@ -10,7 +10,15 @@ export const Header = () => {
        <div className="absolute top-4 left-10 flex items-center gap-4">
       </div>
       <div className="container mx-auto px-6 py-3 flex justify-end items-center border-b border-slate-200">
-        {isAuthenticated && user ? <AuthNav user={user} onLogout={logout} /> : <PublicNav />}
+        {isAuthenticated && user ? (
+          <AuthNav
+            user={{
+              name: `${user.first_name || ''} ${user.last_name || ''}`.trim(),
+              role: user['role'] === 2 ? 'professional' : 'owner',
+            }}
+            onLogout={logout}
+          />
+        ) : <PublicNav />}
       </div>
     </header>
   );

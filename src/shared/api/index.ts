@@ -14,11 +14,12 @@ const handleResponse = async (response: Response) => {
 };
 
 export const api = {
-    post: async <T, R>(endpoint: string, data: T): Promise<R> => {
+    post: async <T, R>(endpoint: string, data: T, headers?: Record<string, string>): Promise<R> => {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                ...(headers || {}),
             },
             body: JSON.stringify(data),
         });

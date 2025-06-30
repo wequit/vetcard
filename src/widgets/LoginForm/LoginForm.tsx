@@ -27,7 +27,7 @@ const itemVariants: Variants = {
 };
 
 export const LoginForm = () => {
-  const { t } = useTranslation(); // ✅ Правильное использование
+  const { t } = useTranslation(); 
 
   return (
     <motion.div 

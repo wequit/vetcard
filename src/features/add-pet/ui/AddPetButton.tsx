@@ -14,7 +14,7 @@ export const AddPetButton = () => {
   return (
     <Button onClick={handleAddPet}>
       <FaPlus className="mr-2" />
-      {t("myPetsPage.addSButton")}{" "}
+      {t("myPetsPage.addButton")}{" "}
     </Button>
   );
 };

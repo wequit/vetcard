@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { FormInput } from '@/shared/ui/FormInput';
 import { StepWrapper } from '@/shared/ui/StepWrapper';
 import type { StepProps } from '../types';
