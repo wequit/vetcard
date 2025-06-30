@@ -30,7 +30,6 @@ export const LoginFields = () => {
         icon={<FaEnvelope className="text-gray-400" />}
       />
 
-      {/* Поле пароля с глазком */}
       <div className="relative">
         <Input
           id="password"

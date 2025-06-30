@@ -1,45 +1,87 @@
 import React from 'react';
 import type { User } from '@/entities/user/model/types';
-import { FaUserEdit, FaPhone, FaEnvelope, FaMapMarkerAlt, FaHome, FaPlus } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaUserEdit, FaPhone, FaMapMarkerAlt, FaHome } from 'react-icons/fa';
+import { Button } from '@/shared/ui/Button';
 
-export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ user, onEdit }) => (
-  <section className="w-full max-w-2xl mx-auto mt-8 px-4">
-    <header className="flex items-center justify-between mb-8">
-      <div className="flex items-center gap-4">
-        {user.logo
-          ? <img src={user.logo} alt="avatar" className="w-16 h-16 rounded-full object-cover border-2 border-blue-400" />
-          : <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-2xl font-bold text-blue-600">
-              {user.first_name?.[0]}{user.last_name?.[0]}
-            </div>
-        }
-        <div>
-          <div className="text-2xl font-bold text-slate-900">{user.last_name} {user.first_name}</div>
-          <div className="text-gray-500 text-sm">@{user.username}</div>
-        </div>
-      </div>
-      <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold transition" onClick={onEdit}>
-        <FaUserEdit /> Редактировать
-      </button>
-    </header>
-    <ul className="divide-y divide-slate-200 bg-white rounded-xl shadow overflow-hidden">
-      <ProfileField icon={<FaPhone className="text-blue-400" />} label="Телефон" value={user.phone} onEdit={onEdit} />
-      <ProfileField icon={<FaEnvelope className="text-blue-400" />} label="Email" value={user.email} />
-      <ProfileField icon={<FaMapMarkerAlt className="text-blue-400" />} label="Город" value={user.city} onEdit={onEdit} />
-      <ProfileField icon={<FaHome className="text-blue-400" />} label="Адрес" value={user.address} onEdit={onEdit} />
-    </ul>
-  </section>
+const BentoBox = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => (
+    <motion.div
+        variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+        }}
+        className={`bg-slate-50 border border-slate-200/90 rounded-2xl p-6 ${className}`}
+    >
+        {children}
+    </motion.div>
 );
 
-const ProfileField: React.FC<{ label: string; value?: string; icon: React.ReactNode; onEdit?: () => void }> = ({ label, value, icon, onEdit }) => (
-  <li className="flex items-center justify-between px-6 py-4">
-    <div className="flex items-center gap-3">
-      {icon}
-      <span className="font-medium text-slate-700">{label}:</span>
-    </div>
-    {value ? (
-      <span className="text-slate-900 font-semibold">{value}</span>
-    ) : (
-      onEdit ? <span className="flex items-center gap-1 text-blue-500 cursor-pointer hover:underline" onClick={onEdit}><FaPlus />Добавить</span> : <span className="text-slate-400">—</span>
-    )}
-  </li>
-); 
+export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ user, onEdit }) => {
+    const fullName = [user.last_name, user.first_name].filter(Boolean).join(' ');
+    const initials = (user.first_name?.[0] || '') + (user.last_name?.[0] || '');
+
+    return (
+        <motion.div
+            variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+                },
+            }}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        >
+            {/* Блок 1: Главный. Занимает всю ширину */}
+            <BentoBox className="sm:col-span-2 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+                <div className="w-24 h-24 rounded-full bg-teal-100 flex-shrink-0 border-4 border-white shadow-md flex items-center justify-center">
+                    {user.logo ? (
+                        <img 
+                            src={user.logo} 
+                            alt="avatar" 
+                            className="w-full h-full rounded-full object-cover" 
+                        />
+                    ) : (
+                        <span className="text-3xl font-bold text-teal-600">{initials}</span>
+                    )}
+                </div>
+                <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <div>
+                        <h1 className="text-3xl font-bold text-slate-900">{fullName}</h1>
+                        <p className="text-slate-500 mt-1">{user.email}</p>
+                    </div>
+                    <Button variant="primary" className="mt-4 sm:mt-0 sm:ml-4" onClick={onEdit}>
+                        <FaUserEdit className="mr-2" />
+                        Редактировать профиль
+                    </Button>
+                </div>
+            </BentoBox>
+
+            {/* Блок 2: Телефон */}
+            <BentoBox>
+                <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
+                    <FaPhone /> Телефон
+                </h3>
+                <p className="text-lg font-semibold text-slate-800">{user.phone || 'Не указан'}</p>
+            </BentoBox>
+
+            {/* Блок 3: Город */}
+            <BentoBox>
+                 <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
+                    <FaMapMarkerAlt /> Город
+                </h3>
+                <p className="text-lg font-semibold text-slate-800">{user.city || 'Не указан'}</p>
+            </BentoBox>
+
+            {/* Блок 4: Адрес. Занимает всю ширину */}
+            <BentoBox className="sm:col-span-2">
+                 <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
+                    <FaHome /> Адрес
+                </h3>
+                <p className="text-lg font-semibold text-slate-800">{user.address || 'Не указан'}</p>
+            </BentoBox>
+
+        </motion.div>
+    );
+};

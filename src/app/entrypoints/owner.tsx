@@ -6,7 +6,7 @@ import { SidebarProvider } from '@/widgets/Sidebar/model/SidebarContext';
 
 export const OwnerLayout = () => {
   const location = useLocation();
-  const isAssistant = location.pathname === "/assistant";
+  const isAssistant = location.pathname === "/assistant" || location.pathname === "/userprofile";
   return (
     <SidebarProvider>
     <div className="flex min-h-screen bg-slate-50">

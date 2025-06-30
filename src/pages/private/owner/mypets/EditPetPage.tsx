@@ -37,8 +37,9 @@ export const EditPetPage = () => {
         <Input label="Имя питомца" name="name" required value={formData.name} onChange={handleChange} />
         <Input label="Вид" name="species" required value={formData.species} onChange={handleChange} />
         <Input label="Порода" name="breed" value={formData.breed} onChange={handleChange} />
-        <Input label="Дата рождения" name="dateOfBirth" type="date" required value={formData.dateOfBirth} onChange={handleChange} />
-        <Input label="Вес (кг)" name="weight" type="number" step="0.1" value={formData.weight} onChange={handleChange} />
+        <Input label="Дата рождения" name="birth_date" type="date" required value={formData.birth_date} onChange={handleChange} />
+        <Input label="Вес (кфг)" name="weight" type="number" step="0.1" value={formData.weight} onChange={handleChange} />
+        <Input label="URL фотографии" name="image_url" value={formData.image_url} onChange={handleChange} />
         <div className="flex justify-end gap-4 pt-4 border-t border-slate-200">
           <Button type="button" variant="outline" onClick={() => navigate('/mypets')}>Отмена</Button>
           <Button type="submit" variant="primary">Сохранить изменения</Button>

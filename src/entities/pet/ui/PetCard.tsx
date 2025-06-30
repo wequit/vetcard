@@ -1,10 +1,10 @@
-
 import { memo, useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEllipsisV,  FaBirthdayCake, FaWeightHanging } from 'react-icons/fa';
 import type { Pet } from '../model/types';
 import { EditPetButton } from '@/features/edit-pet/ui/EditPetButton';
 import { DeletePetButton } from '@/features/delete-pet/ui/DeletePetButton';
+import { usePets } from '@/entities/pet/model/PetContext';
 
 const calculateAge = (dateOfBirth: string): string => {
     const birthDate = new Date(dateOfBirth);
@@ -22,6 +22,8 @@ const calculateAge = (dateOfBirth: string): string => {
 export const PetCard = memo(({ pet }: { pet: Pet }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { speciesDict } = usePets();
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,7 +35,7 @@ export const PetCard = memo(({ pet }: { pet: Pet }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuRef]);
   
-  const age = calculateAge(pet.dateOfBirth);
+  const age = calculateAge(pet.birth_date);
 
   return (
     <motion.div
@@ -61,9 +63,20 @@ export const PetCard = memo(({ pet }: { pet: Pet }) => {
         </AnimatePresence>
       </div>
 
-      <img className="h-56 w-full object-cover" src={pet.avatarUrl} alt={pet.name} />
+      {(!pet.image_url || imgError) ? (
+        <div className="h-56 w-full flex items-center justify-center bg-gradient-to-br from-teal-100 to-teal-300">
+          <span className="text-6xl font-bold text-white drop-shadow">
+            {pet.name?.[0]?.toUpperCase() || '?'}</span>
+        </div>
+      ) : (
+        <img
+          className="h-56 w-full object-cover"
+          src={pet.image_url}
+          onError={() => setImgError(true)}
+        />
+      )}
       <div className="p-6">
-        <p className="text-sm font-semibold text-teal-500">{pet.species}</p>
+        <p className="text-sm font-semibold text-teal-500">{speciesDict[pet.species] || pet.species}</p>
         <h3 className="text-2xl font-bold text-slate-900 mt-1">{pet.name}</h3>
         <p className="text-slate-600">{pet.breed}</p>
         

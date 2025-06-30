@@ -8,7 +8,8 @@ export const UserProfilePage = () => {
     const [editing, setEditing] = useState(false);
     if (!user) return <div>Нет данных пользователя</div>;
     return (
-        <div className="max-w-2xl mx-auto p-6">
+        <div className="max-w-6xl mx-auto p-6">
+            <h1 className="text-3xl font-bold mb-6">Профиль пользователя</h1>
             {editing ? (
                 <EditUserProfileForm user={user} onSave={u => { setUser(u); setEditing(false); }} onCancel={() => setEditing(false)} />
             ) : (

@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
 import type { User } from '@/entities/user/model/types';
 import { api } from '@/shared/api';
-import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaHome, FaSave, FaTimes } from 'react-icons/fa';
+import { Button } from '@/shared/ui/Button';
+
+const EditField = ({ label, name, value, onChange, placeholder }: { label:string, name:string, value?:string | null, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, placeholder?:string }) => (
+    <div>
+        <label htmlFor={name} className="block text-sm font-medium text-slate-600 mb-1">{label}</label>
+        <input
+            id={name}
+            name={name}
+            value={value || ''}
+            onChange={onChange}
+            className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition"
+            placeholder={placeholder || label}
+            autoComplete="off"
+        />
+    </div>
+);
 
 export const EditUserProfileForm: React.FC<{ user: User; onSave: (user: User) => void; onCancel: () => void }> = ({ user, onSave, onCancel }) => {
   const [form, setForm] = useState({ ...user });
@@ -28,40 +43,28 @@ export const EditUserProfileForm: React.FC<{ user: User; onSave: (user: User) =>
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-8 max-w-xl mx-auto space-y-6">
-      <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2"><FaUser className="text-blue-400" /> Редактирование профиля</h2>
-      <div className="space-y-4">
-        <EditField icon={<FaUser />} label="Имя" name="first_name" value={form.first_name} onChange={handleChange} />
-        <EditField icon={<FaUser />} label="Фамилия" name="last_name" value={form.last_name} onChange={handleChange} />
-        <EditField icon={<FaUser />} label="Отчество" name="third_name" value={form.third_name} onChange={handleChange} />
-        <EditField icon={<FaPhone />} label="Телефон" name="phone" value={form.phone} onChange={handleChange} />
-        <EditField icon={<FaEnvelope />} label="Email" name="email" value={form.email} onChange={handleChange} />
-        <EditField icon={<FaMapMarkerAlt />} label="Город" name="city" value={form.city} onChange={handleChange} />
-        <EditField icon={<FaHome />} label="Адрес" name="address" value={form.address} onChange={handleChange} />
-      </div>
-      {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-      <div className="flex justify-end gap-4 pt-4 border-t border-slate-200 mt-6">
-        <button type="button" onClick={onCancel} className="flex items-center gap-2 px-6 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition"><FaTimes /> Отмена</button>
-        <button type="submit" className="flex items-center gap-2 px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition" disabled={loading}>
-          <FaSave /> {loading ? 'Сохраняем...' : 'Сохранить'}
-        </button>
-      </div>
+    <form onSubmit={handleSubmit} className="bg-white/70 backdrop-blur-xl border border-slate-200/50 rounded-2xl shadow-lg space-y-6 p-6 sm:p-8">
+        <h2 className="text-2xl font-bold text-slate-900">Редактирование профиля</h2>
+        
+        {error && <div className="text-red-500 text-sm text-center bg-red-100 p-3 rounded-lg">{error}</div>}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <EditField label="Имя" name="first_name" value={form.first_name} onChange={handleChange} />
+            <EditField label="Фамилия" name="last_name" value={form.last_name} onChange={handleChange} />
+            <EditField label="Отчество" name="third_name" value={form.third_name} onChange={handleChange} />
+            <EditField label="Телефон" name="phone" value={form.phone} onChange={handleChange} placeholder="+996 (999) 123-45-67" />
+            <EditField label="Город" name="city" value={form.city} onChange={handleChange} />
+            <EditField label="Адрес" name="address" value={form.address} onChange={handleChange} />
+        </div>
+
+        <div className="flex justify-end gap-3 pt-6 border-t border-slate-200/80">
+            <Button type="button" variant="outline" onClick={onCancel}>Отмена</Button>
+            <Button type="submit" variant="primary" disabled={loading}>
+                {loading ? 'Сохранение...' : 'Сохранить изменения'}
+            </Button>
+        </div>
     </form>
-  );
+);
 };
 
-const EditField: React.FC<{ label: string; name: string; value?: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; icon: React.ReactNode }> = ({ label, name, value, onChange, icon }) => (
-  <div className="flex items-center gap-3 bg-slate-50 rounded-lg px-4 py-3">
-    {icon}
-    <label htmlFor={name} className="w-32 font-medium text-slate-700">{label}:</label>
-    <input
-      id={name}
-      name={name}
-      value={value || ''}
-      onChange={onChange}
-      className="flex-1 border-none bg-transparent focus:ring-0 text-slate-900 font-semibold placeholder:text-slate-400 outline-none"
-      placeholder={label}
-      autoComplete="off"
-    />
-  </div>
-); 
+  

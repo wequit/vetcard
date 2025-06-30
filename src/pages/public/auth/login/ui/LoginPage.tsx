@@ -6,7 +6,6 @@ import { BackButton } from '@/shared/ui/BackButton';
 export const LoginPage = () => (
   <div className="flex min-h-screen bg-white font-sans">
     
-    {/* Левая часть с изображением */}
     <div className="hidden lg:block w-1/2 relative">
       <div className='absolute z-40 my-6 mx-6'> 
         <img src={LogoWhite} alt='VetCard Logo' />
@@ -30,11 +29,10 @@ export const LoginPage = () => (
       </div>
     </div>
 
-    {/* Правая часть с формой и кнопками */}
     <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative">
 
       <div className="absolute top-4 right-4">
-        <BackButton /> {/* ← Справа */}
+        <BackButton /> 
       </div>
 
       <LoginForm />
