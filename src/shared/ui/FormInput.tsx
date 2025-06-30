@@ -26,7 +26,6 @@ export const FormInput = memo(({ label, name, type = 'text', error, isTextArea =
           className={`${commonClasses} ${error ? errorClasses : ''} pr-10`}
           {...rest}
         />
-        {/* 👁 Иконка видимости только если это пароль */}
         {type === 'password' && !isTextArea && (
           <div
             className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"

@@ -13,7 +13,7 @@ type Step5Props = StepProps & {
     handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Step5Details = memo(({ data, updateField, handleFileChange }: Step5Props) => {
+export const Step6Details = memo(({ data, updateField, handleFileChange }: Step5Props) => {
     if (data.userType === 'veterinarian') {
         return (
             <StepWrapper title="Информация о ветеринаре" description="Пожалуйста, заполните данные о вашей квалификации.">

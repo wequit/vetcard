@@ -1,7 +1,7 @@
-import { RegisterForm } from '@/features/auth/register/ui/RegisterForm'; 
+import { RegisterProcess } from "@/features/auth/register/ui/RegisterProcess";
 
 export const RegisterPage = () => {
   return (
-    <RegisterForm />
+    <RegisterProcess />
   );
 };

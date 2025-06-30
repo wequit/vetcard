@@ -2,34 +2,19 @@ import { useState } from "react";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/Button";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/entities/user/model/useAuth";
 import { useTranslation } from "react-i18next";
+import { useLogin } from "@/features/auth/login/model/useLogin";
 
 export const LoginFields = () => {
   const { t } = useTranslation();
-  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { login, loading, error } = useLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-    if (username === "vet" && password === "vetpass") {
-      login({ name: "Ветеринар", avatarUrl: null, role: "professional" });
-      navigate("/mydata");
-    } else if (username === "owner" && password === "ownerpass") {
-      login({ name: "Владелец", avatarUrl: null, role: "owner" });
-      navigate("/dashboard");
-    } else {
-      setError(t("auth.error"));
-    }
-    setLoading(false);
+    await login(username, password);
   };
 
   return (

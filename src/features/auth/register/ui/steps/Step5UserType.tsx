@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { USER_TYPES } from '@/entities/user/model/constants';
 import type { StepProps } from '../types';
 
-export const Step4UserType = memo(({ data, errors, updateField }: StepProps) => (
+export const Step5UserType = memo(({ data, errors, updateField }: StepProps) => (
      <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-800">Вы регистрируетесь как?</h2>
         <p className="text-gray-500 mb-6">Это поможет нам подобрать для вас лучший опыт.</p>

@@ -46,9 +46,7 @@ export const SupportSidebar = ({ sections, activeId }: SupportSidebarProps) => {
 
     return (
         <>
-            {/* МОБИЛЬНАЯ ВЕРСИЯ: Выпадающий список.
-              Виден только на экранах меньше `lg`.
-            */}
+         
             <div className="lg:hidden mb-8">
                 <label htmlFor="support-nav" className="text-sm font-semibold text-slate-900 tracking-wider uppercase">Навигация по разделу</label>
                 <select
@@ -65,9 +63,7 @@ export const SupportSidebar = ({ sections, activeId }: SupportSidebarProps) => {
                 </select>
             </div>
 
-            {/* ДЕКСТОПНАЯ ВЕРСИЯ: Ваша боковая панель.
-              Скрыта на экранах меньше `lg`.
-            */}
+         
             <aside className="w-64 flex-shrink-0 hidden lg:block sticky top-24 h-fit">
                 <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">Навигация</h3>
                 <nav className="mt-4">

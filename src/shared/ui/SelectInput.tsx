@@ -20,7 +20,6 @@ export const SelectInput: React.FC<CustomSelectProps> = ({
   const [showOptions, setShowOptions] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Закрытие при клике вне
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -40,7 +39,6 @@ export const SelectInput: React.FC<CustomSelectProps> = ({
     <div className="relative mb-4" ref={wrapperRef}>
       <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
 
-      {/* Отображение выбранного значения */}
       <div
         className="w-full p-3 rounded-xl border border-gray-300 text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-sm cursor-pointer relative"
         onClick={() => setShowOptions(prev => !prev)}
@@ -49,7 +47,6 @@ export const SelectInput: React.FC<CustomSelectProps> = ({
           {value || 'Выберите...'}
         </span>
 
-        {/* ▼ Иконка */}
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
           <svg
             className="w-4 h-4 text-gray-400"
@@ -63,7 +60,6 @@ export const SelectInput: React.FC<CustomSelectProps> = ({
         </div>
       </div>
 
-      {/* Список опций */}
       {showOptions && (
         <ul className="absolute z-10 bg-white border border-gray-300 mt-2 rounded-md shadow-md w-full max-h-48 overflow-y-auto">
           {options.map(option => (

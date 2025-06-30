@@ -89,7 +89,6 @@ export const Sidebar = () => {
 
     return (
         <>
-            {/* 1. Версия для ДЕСКТОПА (видна только на lg и больше) */}
             <motion.aside
                 animate={{ width: isDesktopCollapsed ? '5.5rem' : '16rem' }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -104,7 +103,6 @@ export const Sidebar = () => {
                 />
             </motion.aside>
 
-            {/* 2. Версия для МОБИЛЬНЫХ (оверлей, видна только на экранах меньше lg) */}
             <AnimatePresence>
                 {isMobileOpen && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeMobileSidebar} className="fixed inset-0 bg-black/60 z-40 lg:hidden">

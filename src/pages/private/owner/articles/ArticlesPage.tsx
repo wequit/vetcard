@@ -57,7 +57,6 @@ export const ArticlesPage = () => {
                 ))}
             </div>
 
-            {/* ВАРИАНТ ДЛЯ МОБИЛЬНЫХ (МЕНЬШЕ SM) */}
             <div className="sm:hidden">
                 <CategoryPicker
                     categories={categories}
