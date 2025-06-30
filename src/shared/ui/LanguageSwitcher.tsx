@@ -1,8 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { changeLanguage, getCurrentLanguage } from '@/locale/i18n';
 
 export const LanguageSwitcher = () => {
-  const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
 
   const handleLanguageChange = (language: 'ru' | 'kg') => {
