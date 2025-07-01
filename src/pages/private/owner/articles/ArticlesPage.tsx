@@ -49,7 +49,6 @@ export const ArticlesPage = () => {
                 <SearchArticles value={searchQuery} onChange={setSearchQuery} />
             </header>
 
-            {/* Категории на десктопе */}
             <div className="hidden sm:flex items-center gap-2 border-b border-slate-200 pb-3 overflow-x-auto
                    [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {categories.map(category => (
@@ -75,7 +74,6 @@ export const ArticlesPage = () => {
                 />
             </div>
 
-            {/* Список статей или заглушка */}
             {filteredArticles.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredArticles.map(article => (

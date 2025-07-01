@@ -3,6 +3,7 @@ import { useUserStore } from '@/entities/user/model/user-store';
 import { UserRegistrationData, User } from '@/entities/user/model/types';
 import { api } from '@/shared/api';
 import { useAuth } from '@/entities/user/model/useAuth';
+import { usePets } from '@/entities/pet/model/PetContext';
 
 interface RegisterRequestData {
     username: string;
@@ -24,6 +25,7 @@ export const useRegister = () => {
     const { setUser, setLoading, isLoading } = useUserStore();
     const [serverError, setServerError] = useState<string | null>(null);
     const { login } = useAuth();
+    const { fetchPets } = usePets();
 
     const registerInitialUser = async (
         data: Pick<UserRegistrationData, 'username' | 'email' | 'password'>,
@@ -57,7 +59,7 @@ export const useRegister = () => {
     };
 
   
-    const updateProfile = async (user: User, fullData: UserRegistrationData, accessToken: string) => {
+    const updateProfile = async (user: User, fullData: UserRegistrationData, accessToken: string, refreshToken: string) => {
         setLoading(true);
         setServerError(null);
 
@@ -104,10 +106,13 @@ export const useRegister = () => {
             console.log('[REGISTRATION] Сохраняем user в localStorage:', fullProfile);
 
             localStorage.setItem('authToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('user', JSON.stringify(fullProfile));
 
             setUser(fullProfile);
             if (login) login(fullProfile, accessToken);
+
+            await fetchPets();
 
         } catch (error: any) {
             setServerError(error.message || 'Ошибка при сохранении данных профиля');

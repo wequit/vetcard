@@ -92,7 +92,8 @@ export const RegisterProcess = () => {
             return;
         }
         try {
-            await updateProfile(createdUser, data, accessToken);
+            const refreshToken = localStorage.getItem('refreshToken') || '';
+            await updateProfile(createdUser, data, accessToken, refreshToken);
         } catch (error) {
             console.error("Ошибка при финальном обновлении профиля:", error);
         }
@@ -182,22 +183,24 @@ export const RegisterProcess = () => {
     ];
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
-            {serverError && (
-                <div className="text-red-600 bg-red-100 p-3 rounded-lg mb-4 text-center text-sm">
-                    {serverError}
-                </div>
-            )}
-            <RegisterForm
-                steps={steps}
-                currentStep={currentStep}
-                stepComponent={stepComponents[currentStep]}
-                isRegistered={isAuthenticated}
-                isLoading={isLoading}
-                onPrev={handlePrev}
-                onNext={handleStepCompletion}
-                submitButtonText={getButtonText()}
-            />
-        </div>
+        <div className="w-full min-h-screen flex flex-col items-center justify-center bg-slate-50 p-4">
+    <div className="w-full max-w-4xl">
+        {serverError && (
+            <div className="text-red-600 bg-red-100 p-3 rounded-lg mb-4 text-center text-sm">
+                {serverError}
+            </div>
+        )}
+        <RegisterForm
+            steps={steps}
+            currentStep={currentStep}
+            stepComponent={stepComponents[currentStep]}
+            isRegistered={isAuthenticated}
+            isLoading={isLoading}
+            onPrev={handlePrev}
+            onNext={handleStepCompletion}
+            submitButtonText={getButtonText()}
+        />
+    </div>
+</div>
     );
 };

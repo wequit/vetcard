@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserStore } from '@/entities/user/model/user-store';
 import { UserProfileView } from '@/entities/user/ui/UserProfileView';
 import { EditUserProfileForm } from '@/features/edit-user-profile/ui/EditUserProfileForm';
@@ -6,6 +6,14 @@ import { EditUserProfileForm } from '@/features/edit-user-profile/ui/EditUserPro
 export const UserProfilePage = () => {
     const { user, setUser } = useUserStore();
     const [editing, setEditing] = useState(false);
+
+    useEffect(() => {
+        if (!user) {
+            const userFromStorage = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || 'null') : null;
+            if (userFromStorage) setUser(userFromStorage);
+        }
+    }, [user, setUser]);
+
     if (!user) return <div>Нет данных пользователя</div>;
     return (
         <div className="max-w-6xl mx-auto p-6">

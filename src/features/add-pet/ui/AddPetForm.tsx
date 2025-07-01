@@ -25,7 +25,7 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { user } = useUserStore();
     const userFromStorage = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || 'null') : null;
-    const userId = user?.id || userFromStorage?.id;
+    const userId = userFromStorage?.user || user?.id;
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [speciesOptions, setSpeciesOptions] = useState<{ id: number; name_ru: string }[]>([]);
@@ -89,7 +89,7 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
                     birth_date: formData.birth_date,
                     image_url: formData.image_url,
                     special_notes: formData.notes,
-                    species: Number(formData.species),
+                    type_of_animal: Number(formData.species),
                     user: userId
                 },
                 { Authorization: `Bearer ${accessToken}` }
@@ -101,6 +101,7 @@ export const AddPetForm: React.FC<AddPetFormProps> = ({ onAddPet, onCancel }) =>
                 image_url: formData.image_url,
                 weight: Number(formData.weight),
                 species: Number(formData.species),
+                special_notes: formData.notes,
             });
         } catch (e) {
             setError('Ошибка при добавлении питомца');

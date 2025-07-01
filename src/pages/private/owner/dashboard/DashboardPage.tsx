@@ -5,12 +5,22 @@ import { FaPaw, FaBell, FaPlus, FaCalendarCheck, FaSyringe, FaBone } from 'react
 import { Button } from '@/shared/ui/Button';
 import { mockReminder } from '@/entities/assistant/model/mock';
 import { useTranslation } from 'react-i18next';
+import { usePets } from '@/entities/pet/model/PetContext';
 
-const useUser = () => ({ 
-    name: 'Адиль',
-    petsCount: 3,
-    remindersCount: mockReminder.filter(r => r.status === 'Запланировано').length 
-});
+const useUser = () => {
+    const { pets } = usePets();
+    let name = 'Пользователь';
+    if (typeof window !== 'undefined') {
+        const userFromStorage = JSON.parse(localStorage.getItem('user') || 'null');
+        if (userFromStorage && userFromStorage.name) {
+            name = userFromStorage.name;
+        } else if (userFromStorage && userFromStorage.first_name) {
+            name = userFromStorage.first_name;
+        }
+    }
+    const petsCount = pets.length;
+    return { name, petsCount, remindersCount: 3 };
+};
 
 const StatCard = ({ icon, title, value, color, to }: { icon: JSX.Element, title: string, value: string | number, color: string, to: string }) => (
     <motion.div whileHover={{ y: -5 }}>
@@ -37,6 +47,12 @@ const QuickActionsWidget = () => {
             <div className="space-y-3">
                 <Button to="/add-pet" variant="outline" className="w-full justify-start text-left text-base py-3">
                     <FaPlus className="mr-3 text-teal-500" /> {t("dashboard.addPet")}
+                </Button>
+                <Button to="/assistant" variant="outline" className="w-full justify-start text-left text-base py-3">
+                    <FaPlus className="mr-3 text-indigo-500" /> {t("dashboard.chatWithAI", { defaultValue: 'Чат с ИИ' })}
+                </Button>
+                <Button to="/products" variant="outline" className="w-full justify-start text-left text-base py-3">
+                    <FaPlus className="mr-3 text-amber-500" /> {t("dashboard.products", { defaultValue: 'Товары' })}
                 </Button>
             </div>
         </div>
