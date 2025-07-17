@@ -35,6 +35,7 @@ export const useAuth = () => {
   const logout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
+    localStorage.removeItem('registrationProgress');
     authState = { isAuthenticated: false, user: null };
     setIsAuthenticated(false);
     setUser(null);

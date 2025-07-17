@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, ReactNode, JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  FaEnvelope, FaPhone, FaTelegramPlane, FaGithub,
+  FaEnvelope, FaPhone, FaTelegramPlane, 
   FaArrowLeft
 } from 'react-icons/fa';
 import { faqItems } from '@/features/faq-accordion/model/faq-data';
@@ -49,7 +49,7 @@ export const SupportPage = () => {
 
   const sectionIds = sections.map(s => s.id);
   const activeSectionId = useScrollSpy(sectionIds, { rootMargin: '-20% 0px -80% 0px' });
-
+ 
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1);
@@ -61,7 +61,7 @@ export const SupportPage = () => {
   }, [location]);
 
   const handleGoBack = () => {
-    navigate(isAuthenticated ? '/dashboard' : '/');
+    navigate(-1);
   };
 
   return (
@@ -95,7 +95,6 @@ export const SupportPage = () => {
                 <ContactCard icon={<FaPhone />} title={t('support.contact.phone')} text="+996 704 020 784" href="tel:+996704020784" />
                 <ContactCard icon={<FaTelegramPlane />} title={t('support.contact.telegram')} text="@wequit1" href="https://t.me/wequit1" />
                 <ContactCard icon={<FaEnvelope />} title={t('support.contact.email')} text="adilhanimasev6@gmail.com" href="mailto:adilhanimasev6@gmail.com" />
-                <ContactCard icon={<FaGithub />} title={t('support.contact.github')} text="github.com/wequit" href="https://github.com/wequit" />
               </div>
 
               <div className="bg-slate-50 p-6 rounded-lg">

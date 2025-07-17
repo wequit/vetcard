@@ -84,7 +84,6 @@ export const PetCard = memo(({ pet }: { pet: Pet }) => {
         transition={{ duration: 0.6, ease: 'easeInOut' }}
         onClick={handleFlip}
       >
-        {/* === ЛИЦЕВАЯ СТОРОНА КАРТОЧКИ === */}
         <div className="absolute w-full h-full bg-white rounded-xl shadow-lg overflow-hidden [backface-visibility:hidden]">
           {(!pet.image_url || imgError) ? (
             <div className="h-56 w-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">

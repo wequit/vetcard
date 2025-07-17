@@ -16,16 +16,23 @@ const WelcomeScreen = ({ onSuggestionClick }: { onSuggestionClick: (text: string
   const suggestions = t("chat.suggestions", { returnObjects: true }) as string[];
 
   return (
-    <div className="flex flex-col items-center justify-center h-full text-center">
+    <div className="flex flex-col items-center justify-center text-center p-4">
       <Logo />
-      <h2 className="mt-4 text-2xl font-bold text-slate-800">{t("chat.title")}</h2>
-      <p className="mt-2 text-slate-500">{t("chat.subtitle")}</p>
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
+
+      <h2 className="mt-4 text-xl sm:text-2xl font-bold text-slate-800">
+        {t("chat.title")}
+      </h2>
+
+      <p className="mt-2 text-sm sm:text-base text-slate-500">
+        {t("chat.subtitle")}
+      </p>
+
+      <div className="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3">
         {suggestions.map((text) => (
           <button
             key={text}
             onClick={() => onSuggestionClick(text)}
-            className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm px-4 py-2 rounded-full transition-colors"
+            className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full transition-colors"
           >
             {text}
           </button>
@@ -75,11 +82,13 @@ export const Chat = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 flex flex-col h-[90vh]">
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+    <div className="bg-white  flex flex-col h-[90vh]">
+      <div className="flex-1 p-6 space-y-6 overflow-y-auto flex flex-col h-full">
         <AnimatePresence>
           {messages.length === 0 && !isLoading ? (
-            <WelcomeScreen onSuggestionClick={handleSend} />
+            <div className="flex-grow flex items-center justify-center">
+              <WelcomeScreen onSuggestionClick={handleSend} />
+            </div>
           ) : (
             messages.map((msg) => <MessageBubble key={msg.id} message={msg} />)
           )}
@@ -88,13 +97,15 @@ export const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="p-4 border-t border-slate-200 ">
+
+
+      <div className="p-2 sm:p-3 md:p-4 border-t border-slate-200">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSend(input);
           }}
-          className="flex items-end bg-slate-100 rounded-xl p-2"
+          className="flex bg-slate-100 rounded-xl p-1.5 sm:p-2 items-center"
         >
           <textarea
             ref={textareaRef}
@@ -107,14 +118,14 @@ export const Chat = () => {
               }
             }}
             placeholder={t("chat.placeholder")}
-            className="flex-1 bg-transparent resize-none border-none outline-none focus:ring-0 text-sm text-slate-800 placeholder-slate-500 px-2 max-h-40 overflow-y-auto"
+            className="flex-1 bg-transparent resize-none border-none outline-none focus:ring-0 text-sm sm:text-base text-slate-800 placeholder-slate-500 px-2 max-h-36 overflow-y-auto"
             rows={1}
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="w-9 h-9 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all disabled:bg-slate-300"
+            className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all disabled:bg-slate-300 flex-shrink-0"
           >
             <FiSend className="w-4 h-4" />
           </button>

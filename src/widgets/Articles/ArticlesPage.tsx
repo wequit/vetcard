@@ -2,10 +2,11 @@ import { useState, useMemo } from 'react';
 import { FaNewspaper } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
-import { mockArticles } from '@/entities/article/model/mock';
 import { ArticleCard } from '@/entities/article/ui/ArticleCard';
 import { SearchArticles } from '@/features/search-articles/ui/SearchArticles';
 import { CategoryPicker } from '@/features/search-articles/ui/parts/CategoryPicker';
+import { useArticles } from '@/entities/article/data/useArticles';
+import { Loader } from '@/shared/ui/Loader';
 
 export const ArticlesPage = () => {
     const { t } = useTranslation();
@@ -19,22 +20,27 @@ export const ArticlesPage = () => {
 
     const [activeCategory, setActiveCategory] = useState(t('articles.categories.all'));
     const [searchQuery, setSearchQuery] = useState('');
+    const { articles, loading, error } = useArticles();
 
     const filteredArticles = useMemo(() => {
-        let articles = mockArticles;
-
+        let filtered = articles;
         if (activeCategory !== t('articles.categories.all')) {
-            articles = articles.filter(article => article.category === activeCategory);
+            filtered = filtered.filter(article => article.category === activeCategory);
         }
-
         if (searchQuery.trim() !== '') {
-            articles = articles.filter(article =>
+            filtered = filtered.filter(article =>
                 article.title.toLowerCase().includes(searchQuery.toLowerCase())
             );
         }
+        return filtered;
+    }, [articles, activeCategory, searchQuery, t]);
 
-        return articles;
-    }, [activeCategory, searchQuery, t]);
+    if (loading) {
+        return <div className="text-center py-12"><Loader /></div>;
+    }
+    if (error) {
+        return <div className="text-center py-12 text-red-500">{error}</div>;
+    }
 
     return (
         <div className="space-y-8">

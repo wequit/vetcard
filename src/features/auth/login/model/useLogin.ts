@@ -33,7 +33,7 @@ export function useLogin() {
 
       let route = '/dashboard';
       if (userProfile.role === 2) route = '/mydata';
-      if (userProfile.role === 3) route = '/partner';
+      if (userProfile.role === 3) route = '/partner/mydata';
       navigate(route);
     } catch (e) {
       setError("Неверный логин или пароль");

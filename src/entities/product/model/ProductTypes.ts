@@ -1,14 +1,9 @@
 export interface Product {
-  id: string;
-  name: string;
+  id: number;
+  name_ru: string;
+  name_kg: string;
+  is_active: boolean;
+  img_url: string;
   description: string;
-  imageUrl: string;
-  provider?: {
-    name: string;
-    type: 'Клиника' | 'Зоомагазин' | 'Аптека';
-    city?: string;
-    address?: string;
-    phone?: string;
-    link?: string; 
-  };
+  user: number;
 }

@@ -295,8 +295,7 @@
     "contact": {
       "phone": "Позвоните нам",
       "telegram": "Напишите в Telegram",
-      "email": "Отправьте email",
-      "github": "Посмотрите код"
+      "email": "Отправьте email"
     },
     "form": {
       "title": "Форма обратной связи",

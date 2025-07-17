@@ -17,7 +17,6 @@ export const AuthNav = ({ user, onLogout }: AuthNavProps) => {
 
   return (
     <>
-      {/* Десктоп-версия */}
       <nav className="hidden lg:flex items-center gap-6">
         <Link
           to={user.role === "professional" ? "/mydata" : "/userprofile"}

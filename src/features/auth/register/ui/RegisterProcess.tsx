@@ -44,7 +44,7 @@ export const RegisterProcess = () => {
     const [accessToken, setAccessToken] = useState<string | null>(null);
 
     const navigate = useNavigate();
-    const { isAuthenticated, isLoading } = useUserStore();
+    const { isAuthenticated, isLoading, user } = useUserStore();
     const { registerInitialUser, updateProfile, serverError, setServerError } = useRegister();
 
     const steps = useMemo(() => {
@@ -59,12 +59,15 @@ export const RegisterProcess = () => {
     }, [data, currentStep, confirmPassword]);
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticated && user) {
             localStorage.removeItem('registrationProgress');
-            const timer = setTimeout(() => navigate('/dashboard'), 2000);
+            let route = '/dashboard';
+            if (user.role === 2) route = '/mydata';
+            if (user.role === 3) route = '/partner/mydata';
+            const timer = setTimeout(() => navigate(route), 2000);
             return () => clearTimeout(timer);
         }
-    }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, user, navigate]);
 
     const updateField = useCallback((field: keyof UserRegistrationData, value: any) => {
         setData(prev => ({ ...prev, [field]: value }));

@@ -1,18 +1,14 @@
 export type UserRegistrationData = {
-  // Основные данные
   username: string;
   email: string;
   password: string;
   
-  // Персональные данные
   lastName: string;
   firstName: string;
   middleName: string;
   
-  // Тип пользователя
   userType: 'petOwner' | 'veterinarian' | 'partner' | '';
   
-  // Поля для ветеринара
   clinicName?: string;
   position?: string;
   experience?: string;
@@ -21,9 +17,8 @@ export type UserRegistrationData = {
   vetCity?: string;
   vetAddress?: string;
 
-  // Поля для партнера
   partnerName?: string;
-  partnerType?: string; // e.g., 'Клиника', 'Зоомагазин'
+  partnerType?: string;
   partnerCity?: string;
   partnerAddress?: string;
   partnerPhone?: string;
@@ -31,11 +26,9 @@ export type UserRegistrationData = {
   partnerDescription?: string;
   partnerLogo?: File | null;
   
-  // Поля для верификации (если нужны)
   verificationCode?: string;
 };
 
-// Этот тип описывает пользователя, который возвращается с бэкенда
 export interface User {
   id: number;
   profile_id: number;
@@ -49,5 +42,8 @@ export interface User {
   address?: string;
   logo?: string;
   role?: number;
-  // ... и другие поля из ответа API
+  name_of_organization?: string;
+  type?: string;
+  website?: string;
+  description?: string;
 }

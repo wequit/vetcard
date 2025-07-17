@@ -1,34 +1,50 @@
-import { changeLanguage, getCurrentLanguage } from '@/locale/i18n';
+import { useState, useEffect } from 'react';
+import { changeLanguage} from '@/locale/i18n'; 
+import  i18nInstance  from '@/locale/i18n'; 
 
 export const LanguageSwitcher = () => {
-  const currentLanguage = getCurrentLanguage();
+    const [activeLang, setActiveLang] = useState(i18nInstance.language);
 
-  const handleLanguageChange = (language: 'ru' | 'kg') => {
-    changeLanguage(language);
-  };
+    useEffect(() => {
+        const handleLanguageChanged = (lng: string) => {
+            setActiveLang(lng);
+        };
+        i18nInstance.on('languageChanged', handleLanguageChanged);
 
-  return (
-    <div className="flex items-center space-x-2">
-      <button
-        onClick={() => handleLanguageChange('ru')}
-        className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-          currentLanguage === 'ru'
-            ? 'bg-blue-500 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-        }`}
-      >
-        RU
-      </button>
-      <button
-        onClick={() => handleLanguageChange('kg')}
-        className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-          currentLanguage === 'kg'
-            ? 'bg-blue-500 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-        }`}
-      >
-        KG
-      </button>
-    </div>
-  );
-}; 
+        return () => {
+            i18nInstance.off('languageChanged', handleLanguageChanged);
+        };
+    }, []);
+
+
+    const handleLanguageChange = (language: 'ru' | 'kg') => {
+        changeLanguage(language);
+    };
+
+    const baseButtonStyles = "px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm rounded-lg font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500";
+
+    return (
+        <div className="flex items-center space-x-2">
+            <button
+                onClick={() => handleLanguageChange('ru')}
+                className={`${baseButtonStyles} ${
+                    activeLang === 'ru'
+                        ? 'bg-slate-800 text-white shadow-md'
+                        : 'bg-slate-200 text-slate-500 hover:bg-slate-300 hover:text-slate-900'
+                }`}
+            >
+                RU
+            </button>
+            <button
+                onClick={() => handleLanguageChange('kg')}
+                className={`${baseButtonStyles} ${
+                    activeLang.startsWith('kg')
+                        ? 'bg-slate-800 text-white shadow-md'
+                        : 'bg-slate-200 text-slate-500 hover:bg-slate-300 hover:text-slate-900'
+                }`}
+            >
+                KG
+            </button>
+        </div>
+    );
+};

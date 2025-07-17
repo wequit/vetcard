@@ -1,29 +1,45 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { FaBell, FaPlus } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import { Reminder, ReminderStatus } from '@/entities/reminder/model/types';
-import { mockReminders } from '@/entities/reminder/model/mock';
 import { ReminderCard } from '@/entities/reminder/ui/ReminderCard';
 import { ReminderForm } from '@/features/reminder-form/ui/ReminderForm';
 import { Modal } from '@/shared/ui/Modal';
 import { Button } from '@/shared/ui/Button';
 import { useTranslation } from 'react-i18next';
+import { api } from '@/shared/api';
+import { useReminders } from '@/entities/reminder/data/useReminders';
 
 type FilterStatus = 'Запланировано' | 'Сделано' | 'Все';
 
 export const RemindersPage = () => {
   const { t } = useTranslation();
-  const [reminders, setReminders] = useState<Reminder[]>(mockReminders);
+  const { reminders, fetchReminders, setReminders } = useReminders();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingReminder, setEditingReminder] = useState<Reminder | null>(null);
   const [activeFilter, setActiveFilter] = useState<FilterStatus>('Запланировано');
 
-  const handleSave = (data: Omit<Reminder, 'id' | 'status'>, id?: string) => {
+  useEffect(() => {
+    fetchReminders();
+  }, [fetchReminders]);
+
+  const handleSave = async (data: { date: string; event: string }, id?: string) => {
     if (id) {
       setReminders(prev => prev.map(r => r.id === id ? { ...r, ...data } : r));
     } else {
+      try {
+        const accessToken = localStorage.getItem('authToken');
+        await api.post('/v1/assistant/reminder/', {
+          assistant_sms: data.event,
+          date_assistant: data.date,
+          status: true,
+        }, accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined);
+      } catch (e) {
+        alert('Ошибка при добавлении напоминания на сервер');
+      }
       const newReminder: Reminder = {
         id: Date.now().toString(),
+        animalName: '',
         ...data,
         status: 'Запланировано',
       };

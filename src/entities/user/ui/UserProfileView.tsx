@@ -33,7 +33,6 @@ export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ 
             animate="visible"
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
-            {/* Блок 1: Главный. Занимает всю ширину */}
             <BentoBox className="sm:col-span-2 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
                 <div className="w-24 h-24 rounded-full bg-teal-100 flex-shrink-0 border-4 border-white shadow-md flex items-center justify-center">
                     {user.logo ? (
@@ -58,7 +57,6 @@ export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ 
                 </div>
             </BentoBox>
 
-            {/* Блок 2: Телефон */}
             <BentoBox>
                 <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
                     <FaPhone /> Телефон
@@ -66,7 +64,6 @@ export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ 
                 <p className="text-lg font-semibold text-slate-800">{user.phone || 'Не указан'}</p>
             </BentoBox>
 
-            {/* Блок 3: Город */}
             <BentoBox>
                  <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
                     <FaMapMarkerAlt /> Город
@@ -74,7 +71,6 @@ export const UserProfileView: React.FC<{ user: User; onEdit: () => void }> = ({ 
                 <p className="text-lg font-semibold text-slate-800">{user.city || 'Не указан'}</p>
             </BentoBox>
 
-            {/* Блок 4: Адрес. Занимает всю ширину */}
             <BentoBox className="sm:col-span-2">
                  <h3 className="text-sm font-semibold text-slate-500 mb-2 flex items-center gap-2">
                     <FaHome /> Адрес

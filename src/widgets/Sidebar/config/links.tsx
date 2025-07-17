@@ -56,3 +56,24 @@ export const useProfessionalNavConfig = (): NavSection[] => {
     }
   ];
 };
+
+export const usePartnerNavConfig = (): NavSection[] => {
+  const { t } = useTranslation();
+
+  return [
+    {
+      title: t("sidebar.workspace"),
+      links: [
+        { to: "/partner/mydata", icon: <FaUserMd />, text: t("sidebar.mydata") },
+      ]
+    },
+    {
+      title: t("sidebar.tools"),
+      links: [
+        { to: "/assistant", icon: <FaRobot />, text: t("sidebar.assistant") },
+        { to: "/articles", icon: <FaNewspaper />, text: t("sidebar.articles") },
+        { to: "/products", icon: <FaShoppingBag />, text: t("sidebar.products") },
+      ]
+    }
+  ];
+};

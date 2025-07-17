@@ -4,9 +4,9 @@ import { Header } from '@/widgets/Header/ui/Header';
 import { Footer } from '@/widgets/Footer/ui/Footer';
 import { SidebarProvider } from '@/widgets/Sidebar/model/SidebarContext';
 
-export const OwnerLayout = () => {
+export const PartnerLayout = () => {
   const location = useLocation();
-  const isAssistant = location.pathname === "/assistant" || location.pathname === "/userprofile";
+  const isAssistant = location.pathname === "/assistant";
   return (
     <SidebarProvider>
     <div className="flex min-h-screen bg-slate-50">
@@ -27,4 +27,4 @@ export const OwnerLayout = () => {
     </div>
     </SidebarProvider>
   );
-};
+}; 
